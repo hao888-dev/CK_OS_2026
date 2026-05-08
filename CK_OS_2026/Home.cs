@@ -16,7 +16,5 @@ namespace CK_OS_2026
         {
             InitializeComponent();
         }
-
-
     }
 }
