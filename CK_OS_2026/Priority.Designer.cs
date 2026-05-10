@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Priority));
             label1 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -42,11 +43,21 @@
             label1.TabIndex = 1;
             label1.Text = "PRIORITY";
             // 
+            // button1
+            // 
+            button1.Location = new Point(910, 73);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // Priority
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1106, 707);
+            Controls.Add(button1);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Priority";
@@ -58,5 +69,6 @@
         #endregion
 
         private Label label1;
+        private Button button1;
     }
 }
