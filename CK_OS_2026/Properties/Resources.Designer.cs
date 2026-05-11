@@ -99,5 +99,15 @@ namespace CK_OS_2026.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Shortest_Remaining_Time_First {
+            get {
+                object obj = ResourceManager.GetObject("Shortest Remaining Time First", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
