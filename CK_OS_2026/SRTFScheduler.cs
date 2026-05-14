@@ -8,105 +8,117 @@ namespace CK_OS_2026
 {
     public class SRTFScheduler : Scheduler
     {
-        // Thuộc tính để lưu trữ dữ liệu biểu đồ Gantt
-        // Dùng class nhỏ để WinForms có thể lấy dữ liệu này vẽ giao diện
-        public List<(string ProcessId, int Start, int End)> GanttData { get; private set; }
+        // Dữ liệu để vẽ Gantt Chart
+        public List<(string ProcessId, int Start, int End)> GanttData
+        {
+            get;
+            private set;
+        }
 
         public SRTFScheduler(List<Process> processes) : base(processes)
         {
             GanttData = new List<(string, int, int)>();
         }
 
-        
-
         public override void Run()
         {
             int n = processes.Count;
-            int completed = 0;
+
             int currentTime = 0;
-            int shortest = -1;
-            int minRemainingTime = int.MaxValue;
-            bool found = false;
+            int completed = 0;
 
-            // Để tính Response Time chính xác, ta cần biết tiến trình đã từng được chạy chưa
-            // Ở đây dùng một Dictionary để đánh dấu
-            Dictionary<string, bool> isStarted = processes.ToDictionary(p => p.Id, p => false);
-
-            // Biến tạm để theo dõi việc gộp các khối trong Gantt Chart
-            string? lastProcessId = null;
-            int blockStartTime = 0;
+            // Lưu tiến trình trước đó để gộp Gantt
+            string lastProcessId = "";
 
             while (completed < n)
             {
-                minRemainingTime = int.MaxValue;
-                shortest = -1;
-                found = false;
+                int shortest = -1;
 
-                // 1. Tìm tiến trình có RemainingTime nhỏ nhất tại thời điểm hiện tại
+                // =========================
+                // 1. Tìm tiến trình ngắn nhất
+                // =========================
                 for (int i = 0; i < n; i++)
                 {
-                    if (processes[i].ArrivalTime <= currentTime && processes[i].RemainingTime > 0 && processes[i].RemainingTime < minRemainingTime)
+                    if (processes[i].ArrivalTime <= currentTime &&
+                        processes[i].RemainingTime > 0)
                     {
-                        minRemainingTime = processes[i].RemainingTime;
-                        shortest = i;
-                        found = true;
+                        if (shortest == -1 ||
+                            processes[i].RemainingTime <
+                            processes[shortest].RemainingTime)
+                        {
+                            shortest = i;
+                        }
                     }
                 }
 
-                // Xử lý trường hợp CPU rảnh (Idle)
-                if (!found)
+                // =========================
+                // 2. CPU Idle
+                // =========================
+                if (shortest == -1)
                 {
-                    if (lastProcessId != "Idle")
-                    {
-                        if (lastProcessId != null)
-                        {
-                            GanttData.Add((lastProcessId, blockStartTime, currentTime));
-                        }     
-                        
-                        lastProcessId = "Idle";
-                        blockStartTime = currentTime;
-                    }
                     currentTime++;
                     continue;
                 }
 
-                // 2. Logic Gộp khối Gantt Chart: Nếu đổi tiến trình chạy thì lưu khối cũ lại
-                if (processes[shortest].Id != lastProcessId)
+                string currentProcessId = processes[shortest].Id;
+
+                // =========================
+                // 3. Gantt Chart
+                // =========================
+
+                // Nếu đổi tiến trình
+                if (GanttData.Count == 0 ||
+                    lastProcessId != currentProcessId)
                 {
-                    if (lastProcessId != null)
-                    {
-                        GanttData.Add((lastProcessId, blockStartTime, currentTime));
-                    }
-                    lastProcessId = processes[shortest].Id;
-                    blockStartTime = currentTime;
+                    GanttData.Add((
+                        currentProcessId,
+                        currentTime,
+                        currentTime + 1
+                    ));
+                }
+                else
+                {
+                    // Nếu vẫn là tiến trình cũ
+                    var last = GanttData[GanttData.Count - 1];
+
+                    GanttData[GanttData.Count - 1] = (
+                        last.ProcessId,
+                        last.Start,
+                        last.End + 1
+                    );
                 }
 
-                // 3. Tính Response Time (chỉ tính lần đầu tiên CPU chạm vào tiến trình)
-                if (!isStarted[processes[shortest].Id])
+                lastProcessId = currentProcessId;
+
+                // =========================
+                // 4. Response Time
+                // =========================
+                if (processes[shortest].RemainingTime ==
+                    processes[shortest].BurstTime)
                 {
-                    processes[shortest].ResponseTime = currentTime - processes[shortest].ArrivalTime;
-                    isStarted[processes[shortest].Id] = true;
+                    processes[shortest].ResponseTime =
+                        currentTime - processes[shortest].ArrivalTime;
                 }
 
-                // 4. Thực thi tiến trình trong 1 đơn vị thời gian
+                // =========================
+                // 5. Chạy tiến trình
+                // =========================
                 processes[shortest].RemainingTime--;
+
                 currentTime++;
 
-                // 5. Kiểm tra hoàn thành
+                // =========================
+                // 6. Hoàn thành
+                // =========================
                 if (processes[shortest].RemainingTime == 0)
                 {
                     completed++;
-                    processes[shortest].CompletionTime = currentTime;
 
-                    // Gọi phương thức tính TAT và WT từ lớp cha
+                    processes[shortest].CompletionTime =
+                        currentTime;
+
                     processes[shortest].CalculateTimes();
                 }
-            }
-
-            // Lưu khối Gantt cuối cùng sau khi thoát vòng lặp
-            if (lastProcessId != null)
-            {
-                GanttData.Add((lastProcessId, blockStartTime, currentTime));
             }
         }
     }
