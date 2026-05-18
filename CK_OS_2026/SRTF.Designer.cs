@@ -168,6 +168,7 @@
             dgvResults.Columns.AddRange(new DataGridViewColumn[] { resID, resWT, resRT, resTAT });
             dgvResults.Location = new Point(573, 154);
             dgvResults.Name = "dgvResults";
+            dgvResults.ReadOnly = true;
             dgvResults.RowHeadersWidth = 51;
             dgvResults.Size = new Size(501, 188);
             dgvResults.TabIndex = 7;
@@ -177,24 +178,28 @@
             resID.HeaderText = "ID";
             resID.MinimumWidth = 6;
             resID.Name = "resID";
+            resID.ReadOnly = true;
             // 
             // resWT
             // 
             resWT.HeaderText = "Waiting Time";
             resWT.MinimumWidth = 6;
             resWT.Name = "resWT";
+            resWT.ReadOnly = true;
             // 
             // resRT
             // 
             resRT.HeaderText = "Response Time";
             resRT.MinimumWidth = 6;
             resRT.Name = "resRT";
+            resRT.ReadOnly = true;
             // 
             // resTAT
             // 
             resTAT.HeaderText = "Turnaround Time";
             resTAT.MinimumWidth = 6;
             resTAT.Name = "resTAT";
+            resTAT.ReadOnly = true;
             // 
             // pnlGantt
             // 
