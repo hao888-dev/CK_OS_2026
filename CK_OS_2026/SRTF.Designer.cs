@@ -73,7 +73,6 @@
             txtRowCount.PlaceholderText = "số phải >=0";
             txtRowCount.Size = new Size(276, 31);
             txtRowCount.TabIndex = 0;
-            txtRowCount.KeyDown += txtRowCount_KeyDown;
             // 
             // label1
             // 

@@ -3,96 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCodeSRTF;
 
 namespace CK_OS_2026
 {
-    public class PriorityScheduler : Scheduler // đổi internal thành public để dễ hơn nhé
+    public class PriorityScheduler : Scheduler
     {
-        // constructor
         public PriorityScheduler(List<Process> processes) : base(processes)
-        {
-
+        {       
         }
-
-        public override void Run() // code thuật ở trong hàm này nhé
+        // Non-Preemptive Priority
+        public override void Run()
         {
             int currentTime = 0;
             int completedProcesses = 0;
-            int n = processes.Count;
+            int n = process.Count;
 
-            while (completedProcesses < n) // lặp cho đến khi tất cả tiến trình hoàn thành
+            while (completedProcesses < n)
             {
-                Process currentProcess = null; // tạo biến để lưu tiến trình hiện tại
+                int targetIndex = -1; // tạo biến để lưu tiến trình hiện tại
 
-                foreach (Process p in processes) // duyệt qua tất cả các tiến trình
+                for (int i = 0; i < n; i++)
                 {
-                    if (p.ArrivalTime <= currentTime && p.RemainingTime > 0) // nếu tiến trình đã đến và chưa hoàn thành
+                    if (process[i].arrivalTime <= currentTime && process[i].remainingTime > 0)
                     {
-                        if (currentProcess == null)
+                        if (targetIndex == -1)
                         {
-                            currentProcess = p; // nếu chưa có tiến trình nào được chọn, chọn tiến trình hiện tại
-
+                            targetIndex = i;
                         }
-
-                        else if (p.Priority < currentProcess.Priority)
-                        { // nếu tiến trình hiện tại có độ ưu tiên cao hơn
-                            currentProcess = p;
-
-                        }
-
-                        else if (p.Priority == currentProcess.Priority) // nếu độ ưu tiên bằng nhau, chọn tiến trình có thời gian đến sớm hơn
+                        // Số Priority nhỏ hơn nghĩa là độ ưu tiên cao hơn
+                        else if (process[i].priority < process[targetIndex].priority)
                         {
-                            if (p.ArrivalTime < currentProcess.ArrivalTime)
+                            targetIndex = i;
+                        }
+                        // Nếu độ ưu tiên bằng nhau, chọn tiến trình có thời gian đến sớm hơn
+                        else if (process[i].priority == process[targetIndex].priority)
+                        {
+                            if (process[i].arrivalTime < process[targetIndex].arrivalTime)
                             {
-                                currentProcess = p;
+                                targetIndex = i;
                             }
                         }
                     }
                 }
-
-
-                if (currentProcess == null)
+                // bỏ qua vụ idle (thời gian nghỉ của CPU)
+                if (targetIndex == -1)
                 {
                     currentTime++;
                     continue;
                 }
 
-                currentProcess.ResponseTime = currentTime - currentProcess.ArrivalTime;
-                currentTime += currentProcess.BurstTime;
-                currentProcess.CompletionTime = currentTime;
-                currentProcess.RemainingTime = 0;
-                currentProcess.CalculateTimes();
+                // Respone Time 
+                Process currentProcess = process[targetIndex];
+
+                if (currentProcess.remainingTime == currentProcess.burstTime)
+                {
+                    currentProcess.markResponse(currentTime);
+                }
+
+                // Vẽ gantt + chạy độc quyền
+                while (currentProcess.remainingTime > 0)
+                {
+                    appendGantt(currentProcess.ID!, currentTime);
+
+                    currentProcess.executeOneTick();
+                    currentTime++;
+                }
+
+                // Tính và tăng hoàn thành Process
+                currentProcess.markCompletion(currentTime);
                 completedProcesses++;
-
-                /*
-                    Priority Non-Preemptive Scheduling
-
-                    Rule:
-                    - Process có priority nhỏ hơn sẽ được ưu tiên cao hơn
-                    - CPU sẽ chạy process tới hết rồi mới chuyển process khác
-
-                    Steps:
-
-                    1. Tìm process:
-                        - đã tới
-                        - chưa hoàn thành
-                        - có priority cao nhất
-
-                    2. Nếu chưa có process nào tới:
-                        currentTime++
-
-                    3. Chạy process tới khi hoàn thành
-
-                    4. Cập nhật:
-                        - Response Time: thời gian từ lúc process tới đến lúc được CPU chạy lần đầu
-
-                        - Completion Time: thời điểm process hoàn thành
-
-                        - Waiting Time: tổng thời gian process chờ CPU
-
-                        - Turnaround Time:tổng thời gian process ở trong hệ thống (Completion Time - Arrival Time)
-                */
             }
         }
     }
+    
 }
