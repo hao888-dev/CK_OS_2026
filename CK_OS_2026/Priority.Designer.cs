@@ -61,9 +61,12 @@
             label4 = new Label();
             panel1 = new Panel();
             label2 = new Label();
+            pictureBoxGantt = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             groupBox1.SuspendLayout();
+            pnlGantt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGantt).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
@@ -296,6 +299,7 @@
             // 
             // pnlGantt
             // 
+            pnlGantt.Controls.Add(pictureBoxGantt);
             pnlGantt.Location = new Point(-1, 597);
             pnlGantt.Name = "pnlGantt";
             pnlGantt.Size = new Size(1110, 116);
@@ -369,6 +373,15 @@
             label2.Text = "Nhập dữ liệu cho từng P (AT >= 0 , BT > 0, Priority)";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // pictureBoxGantt
+            // 
+            pictureBoxGantt.Location = new Point(0, 0);
+            pictureBoxGantt.Name = "pictureBoxGantt";
+            pictureBoxGantt.Size = new Size(125, 62);
+            pictureBoxGantt.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxGantt.TabIndex = 28;
+            pictureBoxGantt.TabStop = false;
+            // 
             // Priority
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -398,6 +411,9 @@
             ((System.ComponentModel.ISupportInitialize)dgvResults).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            pnlGantt.ResumeLayout(false);
+            pnlGantt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGantt).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -436,5 +452,6 @@
         private Label label4;
         private Panel panel1;
         private Label label2;
+        private PictureBox pictureBoxGantt;
     }
 }

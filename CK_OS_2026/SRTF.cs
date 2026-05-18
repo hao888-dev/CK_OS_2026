@@ -72,7 +72,7 @@ namespace CK_OS_2026
             scheduler.Run();
 
             DisplayResults();
-            GanttRenderer.Draw(pnlGantt, scheduler.ganttData);
+            GanttRenderer.Draw(pnlGantt, pictureBoxGantt, scheduler.ganttData);
         }
 
         private void DisplayResults()
@@ -134,9 +134,6 @@ namespace CK_OS_2026
 
         private void ShowError(string message) => MessageBox.Show(message, "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-        private void txtRowCount_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

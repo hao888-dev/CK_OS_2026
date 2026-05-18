@@ -45,6 +45,7 @@
             resRT = new DataGridViewTextBoxColumn();
             resTAT = new DataGridViewTextBoxColumn();
             pnlGantt = new Panel();
+            pictureBoxGantt = new PictureBox();
             lblAvgWT = new Label();
             lblAvgRT = new Label();
             lblAvgTAT = new Label();
@@ -62,6 +63,8 @@
             panel3 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
+            pnlGantt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGantt).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -203,10 +206,21 @@
             // 
             // pnlGantt
             // 
+            pnlGantt.AutoScroll = true;
+            pnlGantt.Controls.Add(pictureBoxGantt);
             pnlGantt.Location = new Point(-3, 591);
             pnlGantt.Name = "pnlGantt";
             pnlGantt.Size = new Size(1110, 116);
             pnlGantt.TabIndex = 8;
+            // 
+            // pictureBoxGantt
+            // 
+            pictureBoxGantt.Location = new Point(0, 0);
+            pictureBoxGantt.Name = "pictureBoxGantt";
+            pictureBoxGantt.Size = new Size(125, 62);
+            pictureBoxGantt.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxGantt.TabIndex = 0;
+            pictureBoxGantt.TabStop = false;
             // 
             // lblAvgWT
             // 
@@ -391,6 +405,9 @@
             Text = "SRTF";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).EndInit();
+            pnlGantt.ResumeLayout(false);
+            pnlGantt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGantt).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -430,5 +447,6 @@
         private Panel panel2;
         private Label label10;
         private Panel panel3;
+        private PictureBox pictureBoxGantt;
     }
 }
