@@ -18,6 +18,9 @@
             BtnPriority.Click += BtnPriority_Click;
             BtnDeadlock.Click += BtnDeadlock_Click;
             BtnOPT.Click += BtnOPT_Click;
+            BtnLRU.Click += BtnLRU_Click;
+            BtnFIFO.Click += BtnFIFO_Click;
+            BtnClock.Click += BtnClock_Click;
         }
 
         private void OpenChildForm(Form childForm)
@@ -102,6 +105,24 @@
         {
             SelectButton(BtnOPT);
             OpenChildForm(new OPT());
+        }
+
+        private void BtnLRU_Click(object sender, EventArgs e)
+        {
+            SelectButton(BtnLRU);
+            OpenChildForm(new LRU());
+        }
+
+        private void BtnFIFO_Click(object sender, EventArgs e)
+        {
+            SelectButton(BtnFIFO);
+            OpenChildForm(new FIFO());
+        }
+
+        private void BtnClock_Click(object sender, EventArgs e)
+        {
+            SelectButton(BtnClock);
+            OpenChildForm(new Clock());
         }
     }
 }

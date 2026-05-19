@@ -30,7 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
-            pictureBox1 = new PictureBox();
+            panel5 = new Panel();
+            panel4 = new Panel();
+            panel3 = new Panel();
+            BtnClock = new Button();
+            BtnFIFO = new Button();
+            BtnLRU = new Button();
             BtnOPT = new Button();
             BtnDeadlock = new Button();
             BtnPriority = new Button();
@@ -41,13 +46,17 @@
             BtnHome = new Button();
             panel2 = new Panel();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
-            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(BtnClock);
+            panel1.Controls.Add(BtnFIFO);
+            panel1.Controls.Add(BtnLRU);
             panel1.Controls.Add(BtnOPT);
             panel1.Controls.Add(BtnDeadlock);
             panel1.Controls.Add(BtnPriority);
@@ -62,15 +71,77 @@
             panel1.Size = new Size(202, 708);
             panel1.TabIndex = 0;
             // 
-            // pictureBox1
+            // panel5
             // 
-            pictureBox1.Image = Properties.Resources.icons8_glasses_100;
-            pictureBox1.Location = new Point(21, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(162, 89);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            panel5.BackColor = Color.White;
+            panel5.Location = new Point(0, 473);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(202, 1);
+            panel5.TabIndex = 12;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Location = new Point(0, 368);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(202, 1);
+            panel4.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Location = new Point(0, 86);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(202, 1);
+            panel3.TabIndex = 0;
+            // 
+            // BtnClock
+            // 
+            BtnClock.BackColor = Color.FromArgb(64, 64, 64);
+            BtnClock.FlatAppearance.BorderColor = Color.White;
+            BtnClock.FlatAppearance.BorderSize = 0;
+            BtnClock.FlatStyle = FlatStyle.Flat;
+            BtnClock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnClock.ForeColor = Color.White;
+            BtnClock.Location = new Point(0, 623);
+            BtnClock.Name = "BtnClock";
+            BtnClock.Size = new Size(202, 50);
+            BtnClock.TabIndex = 11;
+            BtnClock.Text = "Clock";
+            BtnClock.UseVisualStyleBackColor = false;
+            BtnClock.Click += BtnClock_Click;
+            // 
+            // BtnFIFO
+            // 
+            BtnFIFO.BackColor = Color.FromArgb(64, 64, 64);
+            BtnFIFO.FlatAppearance.BorderColor = Color.White;
+            BtnFIFO.FlatAppearance.BorderSize = 0;
+            BtnFIFO.FlatStyle = FlatStyle.Flat;
+            BtnFIFO.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnFIFO.ForeColor = Color.White;
+            BtnFIFO.Location = new Point(0, 573);
+            BtnFIFO.Name = "BtnFIFO";
+            BtnFIFO.Size = new Size(202, 50);
+            BtnFIFO.TabIndex = 10;
+            BtnFIFO.Text = "FIFO";
+            BtnFIFO.UseVisualStyleBackColor = false;
+            BtnFIFO.Click += BtnFIFO_Click;
+            // 
+            // BtnLRU
+            // 
+            BtnLRU.BackColor = Color.FromArgb(64, 64, 64);
+            BtnLRU.FlatAppearance.BorderColor = Color.White;
+            BtnLRU.FlatAppearance.BorderSize = 0;
+            BtnLRU.FlatStyle = FlatStyle.Flat;
+            BtnLRU.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnLRU.ForeColor = Color.White;
+            BtnLRU.Location = new Point(0, 523);
+            BtnLRU.Name = "BtnLRU";
+            BtnLRU.Size = new Size(202, 50);
+            BtnLRU.TabIndex = 9;
+            BtnLRU.Text = "LRU";
+            BtnLRU.UseVisualStyleBackColor = false;
+            BtnLRU.Click += BtnLRU_Click;
             // 
             // BtnOPT
             // 
@@ -80,9 +151,9 @@
             BtnOPT.FlatStyle = FlatStyle.Flat;
             BtnOPT.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnOPT.ForeColor = Color.White;
-            BtnOPT.Location = new Point(-5, 594);
+            BtnOPT.Location = new Point(0, 473);
             BtnOPT.Name = "BtnOPT";
-            BtnOPT.Size = new Size(207, 70);
+            BtnOPT.Size = new Size(202, 50);
             BtnOPT.TabIndex = 8;
             BtnOPT.Text = "OPT";
             BtnOPT.UseVisualStyleBackColor = false;
@@ -96,9 +167,9 @@
             BtnDeadlock.FlatStyle = FlatStyle.Flat;
             BtnDeadlock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnDeadlock.ForeColor = Color.White;
-            BtnDeadlock.Location = new Point(-5, 528);
+            BtnDeadlock.Location = new Point(0, 369);
             BtnDeadlock.Name = "BtnDeadlock";
-            BtnDeadlock.Size = new Size(207, 68);
+            BtnDeadlock.Size = new Size(202, 50);
             BtnDeadlock.TabIndex = 7;
             BtnDeadlock.Text = "Deadlock";
             BtnDeadlock.UseVisualStyleBackColor = false;
@@ -112,9 +183,9 @@
             BtnPriority.FlatStyle = FlatStyle.Flat;
             BtnPriority.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnPriority.ForeColor = Color.White;
-            BtnPriority.Location = new Point(-5, 462);
+            BtnPriority.Location = new Point(0, 287);
             BtnPriority.Name = "BtnPriority";
-            BtnPriority.Size = new Size(207, 72);
+            BtnPriority.Size = new Size(202, 50);
             BtnPriority.TabIndex = 6;
             BtnPriority.Text = "Priority";
             BtnPriority.UseVisualStyleBackColor = false;
@@ -128,9 +199,9 @@
             BtnRR.FlatStyle = FlatStyle.Flat;
             BtnRR.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnRR.ForeColor = Color.White;
-            BtnRR.Location = new Point(-5, 396);
+            BtnRR.Location = new Point(0, 237);
             BtnRR.Name = "BtnRR";
-            BtnRR.Size = new Size(207, 73);
+            BtnRR.Size = new Size(202, 50);
             BtnRR.TabIndex = 5;
             BtnRR.Text = "RR";
             BtnRR.UseVisualStyleBackColor = false;
@@ -144,9 +215,9 @@
             BtnSRTF.FlatStyle = FlatStyle.Flat;
             BtnSRTF.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnSRTF.ForeColor = Color.White;
-            BtnSRTF.Location = new Point(-5, 330);
+            BtnSRTF.Location = new Point(0, 187);
             BtnSRTF.Name = "BtnSRTF";
-            BtnSRTF.Size = new Size(207, 72);
+            BtnSRTF.Size = new Size(202, 50);
             BtnSRTF.TabIndex = 4;
             BtnSRTF.Text = "SRTF";
             BtnSRTF.UseVisualStyleBackColor = false;
@@ -160,9 +231,9 @@
             BtnSJF.FlatStyle = FlatStyle.Flat;
             BtnSJF.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnSJF.ForeColor = Color.White;
-            BtnSJF.Location = new Point(-5, 264);
+            BtnSJF.Location = new Point(0, 137);
             BtnSJF.Name = "BtnSJF";
-            BtnSJF.Size = new Size(207, 70);
+            BtnSJF.Size = new Size(202, 50);
             BtnSJF.TabIndex = 3;
             BtnSJF.Text = "SJF";
             BtnSJF.UseVisualStyleBackColor = false;
@@ -176,9 +247,9 @@
             BtnFCFS.FlatStyle = FlatStyle.Flat;
             BtnFCFS.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnFCFS.ForeColor = Color.White;
-            BtnFCFS.Location = new Point(-5, 198);
+            BtnFCFS.Location = new Point(0, 87);
             BtnFCFS.Name = "BtnFCFS";
-            BtnFCFS.Size = new Size(207, 68);
+            BtnFCFS.Size = new Size(202, 50);
             BtnFCFS.TabIndex = 2;
             BtnFCFS.Text = "FCFS";
             BtnFCFS.UseVisualStyleBackColor = false;
@@ -192,9 +263,9 @@
             BtnHome.FlatStyle = FlatStyle.Flat;
             BtnHome.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnHome.ForeColor = Color.White;
-            BtnHome.Location = new Point(-5, 132);
+            BtnHome.Location = new Point(0, 0);
             BtnHome.Name = "BtnHome";
-            BtnHome.Size = new Size(207, 71);
+            BtnHome.Size = new Size(202, 87);
             BtnHome.TabIndex = 1;
             BtnHome.Text = "Home";
             BtnHome.UseVisualStyleBackColor = false;
@@ -221,7 +292,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OSK50";
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -236,7 +306,12 @@
         private Button BtnRR;
         private Button BtnSRTF;
         private Button BtnSJF;
-        private PictureBox pictureBox1;
         private Panel panel2;
+        private Button BtnLRU;
+        private Button BtnFIFO;
+        private Button BtnClock;
+        private Panel panel3;
+        private Panel panel4;
+        private Panel panel5;
     }
 }
