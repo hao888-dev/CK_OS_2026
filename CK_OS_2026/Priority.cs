@@ -101,7 +101,7 @@ namespace CK_OS_2026
                 double throughput = maxEndTime > 0 ? (double)n / maxEndTime : 0;
                 lblThroughput.Text = throughput.ToString("0.000");
 
-                // gọi hàm vễ
+                // gọi hàm vẽ
                 GanttRenderer.Draw(pnlGantt, pictureBoxGantt, scheduler.ganttData);
             }
 
