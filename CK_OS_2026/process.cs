@@ -27,6 +27,17 @@ namespace TestCodeSRTF
             this.arrivalTime = arrivalTime;
             this.burstTime = burstTime;
             this.remainingTime = burstTime;
+            this.priority = 0; // gán mặc định bằng 0 để không bị lỗi null
+        }
+
+        // constructure riêng cho priority
+        public Process(string? ID, int arrivalTime, int burstTime, int priority)
+        {
+            this.ID = ID;
+            this.arrivalTime = arrivalTime;
+            this.burstTime = burstTime;
+            this.remainingTime = burstTime;
+            this.priority = priority;
         }
 
         public void executeOneTick() => remainingTime--;     

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Priority));
-            dataGridView1 = new DataGridView();
+            dgvInput = new DataGridView();
             colID = new DataGridViewTextBoxColumn();
             colAT = new DataGridViewTextBoxColumn();
             colBT = new DataGridViewTextBoxColumn();
             colPri = new DataGridViewTextBoxColumn();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            txtSoLuong = new TextBox();
+            btnNhap = new Button();
+            btnThucHien = new Button();
             label9 = new Label();
             label1 = new Label();
             dgvResults = new DataGridView();
@@ -54,6 +54,7 @@
             lblThroughput = new Label();
             lblAvgTAT = new Label();
             pnlGantt = new Panel();
+            pictureBoxGantt = new PictureBox();
             label10 = new Label();
             panel3 = new Panel();
             panel2 = new Panel();
@@ -61,25 +62,24 @@
             label4 = new Label();
             panel1 = new Panel();
             label2 = new Label();
-            pictureBoxGantt = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             groupBox1.SuspendLayout();
             pnlGantt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxGantt).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvInput
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colID, colAT, colBT, colPri });
-            dataGridView1.Location = new Point(37, 249);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(459, 236);
-            dataGridView1.TabIndex = 0;
+            dgvInput.AllowUserToAddRows = false;
+            dgvInput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInput.Columns.AddRange(new DataGridViewColumn[] { colID, colAT, colBT, colPri });
+            dgvInput.Location = new Point(37, 249);
+            dgvInput.Name = "dgvInput";
+            dgvInput.RowHeadersWidth = 51;
+            dgvInput.Size = new Size(459, 236);
+            dgvInput.TabIndex = 0;
             // 
             // colID
             // 
@@ -107,32 +107,32 @@
             colPri.MinimumWidth = 6;
             colPri.Name = "colPri";
             // 
-            // textBox1
+            // txtSoLuong
             // 
-            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(37, 163);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = ">= 0";
-            textBox1.Size = new Size(342, 34);
-            textBox1.TabIndex = 1;
+            txtSoLuong.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSoLuong.Location = new Point(37, 163);
+            txtSoLuong.Name = "txtSoLuong";
+            txtSoLuong.PlaceholderText = ">= 0";
+            txtSoLuong.Size = new Size(342, 34);
+            txtSoLuong.TabIndex = 1;
             // 
-            // button1
+            // btnNhap
             // 
-            button1.Location = new Point(402, 163);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 34);
-            button1.TabIndex = 2;
-            button1.Text = "Nhập";
-            button1.UseVisualStyleBackColor = true;
+            btnNhap.Location = new Point(402, 163);
+            btnNhap.Name = "btnNhap";
+            btnNhap.Size = new Size(94, 34);
+            btnNhap.TabIndex = 2;
+            btnNhap.Text = "Nhập";
+            btnNhap.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnThucHien
             // 
-            button2.Location = new Point(393, 504);
-            button2.Name = "button2";
-            button2.Size = new Size(103, 42);
-            button2.TabIndex = 4;
-            button2.Text = "Thực hiện";
-            button2.UseVisualStyleBackColor = true;
+            btnThucHien.Location = new Point(393, 504);
+            btnThucHien.Name = "btnThucHien";
+            btnThucHien.Size = new Size(103, 42);
+            btnThucHien.TabIndex = 4;
+            btnThucHien.Text = "Thực hiện";
+            btnThucHien.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -142,7 +142,7 @@
             label9.ForeColor = SystemColors.ButtonFace;
             label9.Location = new Point(-1, -6);
             label9.Name = "label9";
-            label9.Size = new Size(165, 50);
+            label9.Size = new Size(165, 49);
             label9.TabIndex = 16;
             label9.Text = "Priority";
             // 
@@ -305,6 +305,15 @@
             pnlGantt.Size = new Size(1110, 116);
             pnlGantt.TabIndex = 20;
             // 
+            // pictureBoxGantt
+            // 
+            pictureBoxGantt.Location = new Point(0, 0);
+            pictureBoxGantt.Name = "pictureBoxGantt";
+            pictureBoxGantt.Size = new Size(125, 62);
+            pictureBoxGantt.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxGantt.TabIndex = 28;
+            pictureBoxGantt.TabStop = false;
+            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -373,15 +382,6 @@
             label2.Text = "Nhập dữ liệu cho từng P (AT >= 0 , BT > 0, Priority)";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // pictureBoxGantt
-            // 
-            pictureBoxGantt.Location = new Point(0, 0);
-            pictureBoxGantt.Name = "pictureBoxGantt";
-            pictureBoxGantt.Size = new Size(125, 62);
-            pictureBoxGantt.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBoxGantt.TabIndex = 28;
-            pictureBoxGantt.TabStop = false;
-            // 
             // Priority
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -400,14 +400,14 @@
             Controls.Add(dgvResults);
             Controls.Add(label1);
             Controls.Add(label9);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(btnThucHien);
+            Controls.Add(btnNhap);
+            Controls.Add(txtSoLuong);
+            Controls.Add(dgvInput);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Priority";
             Text = "Priority";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvInput).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -420,10 +420,10 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
+        private DataGridView dgvInput;
+        private TextBox txtSoLuong;
+        private Button btnNhap;
+        private Button btnThucHien;
         private Label label9;
         private Label label1;
         private DataGridView dgvResults;
