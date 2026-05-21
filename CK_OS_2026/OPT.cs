@@ -15,75 +15,130 @@ namespace CK_OS_2026
         public OPT()
         {
             InitializeComponent();
+
+            // THÊM 2 DÒNG NÀY ĐỂ KẾT NỐI NÚT BẤM VỚI HÀM XỬ LÝ
+            button1.Click += new EventHandler(button1_Click);
+            button2.Click += new EventHandler(button2_Click);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        // ==========================================
+        // 1. XỬ LÝ NÚT "NHẬP" ĐỂ TẠO DÒNG NHẬP CHUỖI
+        // ==========================================
+        private void button1_Click(object sender, EventArgs e)
         {
-            ChayThuNghiemCuonDataGridView();
+            if (int.TryParse(textBox1.Text, out int soTrang) && soTrang > 0)
+            {
+                dataGridView1.Rows.Clear();
+                dataGridView1.AllowUserToAddRows = false;
+
+                for (int i = 0; i < soTrang; i++)
+                {
+                    dataGridView1.Rows.Add();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập số lượng trang hợp lệ (>0)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void ChayThuNghiemCuonDataGridView()
+
+        // ==========================================
+        // 2. XỬ LÝ NÚT "THỰC HIỆN" ĐỂ CHẠY OPT
+        // ==========================================
+        private void button2_Click(object sender, EventArgs e)
         {
-            // 1. Xóa sạch cột và dòng cũ (nếu có) để tránh cộng dồn khi bấm nhiều lần
+            // Lấy chuỗi tham chiếu từ dataGridView1
+            List<int> pages = new List<int>();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value.ToString(), out int val))
+                {
+                    pages.Add(val);
+                }
+            }
+
+            if (pages.Count == 0)
+            {
+                MessageBox.Show("Vui lòng nhập chuỗi tham chiếu trang nhớ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Lấy số Frame
+            if (!int.TryParse(textBox2.Text, out int frames) || frames <= 0)
+            {
+                MessageBox.Show("Vui lòng nhập số frame hợp lệ (>0)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Gọi thuật toán
+            OPTResult result = OPTAlgorithm.RunOPT(pages, frames);
+
+            // Hiển thị ra bảng
+            HienThiKetQuaThucTe(result);
+        }
+
+        // ==========================================
+        // 3. HÀM HIỂN THỊ DỮ LIỆU THẬT LÊN DATAGRIDVIEW2
+        // ==========================================
+        private void HienThiKetQuaThucTe(OPTResult result)
+        {
             dataGridView2.Columns.Clear();
             dataGridView2.Rows.Clear();
+            dataGridView2.ScrollBars = ScrollBars.Both;
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.ReadOnly = true;
 
-            // 2. Cấu hình cơ bản cho DataGridView
-            dataGridView2.ScrollBars = ScrollBars.Both; // Bật cả cuộn dọc và cuộn ngang
-            dataGridView2.AllowUserToAddRows = false;   // Tắt dòng trống mặc định ở cuối bảng
-            dataGridView2.ReadOnly = true;              // Chỉ cho xem, không cho sửa bậy
-
-            // 3. Tạo cột đầu tiên và GHIM cố định (Frozen) giống như Excel
+            // Cột tiêu đề ghim (Frozen)
             DataGridViewTextBoxColumn colTieuDe = new DataGridViewTextBoxColumn();
             colTieuDe.Name = "Col_TieuDe";
-            colTieuDe.HeaderText = "Khung Trang";
+            colTieuDe.HeaderText = $"Page Fault: {result.PageFaults}"; // Hiển thị tổng số lỗi trang ở góc
             colTieuDe.Width = 110;
-            colTieuDe.Frozen = true; // Thằng này sẽ đứng yên khi bạn cuộn ngang sang phải
+            colTieuDe.Frozen = true;
             colTieuDe.DefaultCellStyle.Font = new Font(dataGridView2.Font, FontStyle.Bold);
             dataGridView2.Columns.Add(colTieuDe);
 
-            // 4. Vòng lặp tạo thêm 30 cột để ép DataGridView phải xuất hiện thanh cuộn ngang
-            for (int i = 1; i <= 30; i++)
+            // Tạo các cột ứng với từng bước
+            for (int i = 0; i < result.Pages.Count; i++)
             {
                 DataGridViewTextBoxColumn colBuoc = new DataGridViewTextBoxColumn();
                 colBuoc.Name = $"Col_Buoc{i}";
-                colBuoc.HeaderText = $"B.{i}"; // Tiêu đề cột ngắn gọn (Bước 1, Bước 2...)
-                colBuoc.Width = 45;            // Thu nhỏ độ rộng để vừa khít chữ số
-                colBuoc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa
+                colBuoc.HeaderText = result.Pages[i].ToString(); // Tiêu đề cột là trang tham chiếu
+                colBuoc.Width = 45;
+                colBuoc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dataGridView2.Columns.Add(colBuoc);
             }
 
-            // 5. Thêm Dòng 1 (Mô phỏng dữ liệu Khung 1)
-            int r1 = dataGridView2.Rows.Add();
-            dataGridView2.Rows[r1].Cells[0].Value = "Khung số 1";
-            for (int i = 1; i <= 30; i++)
+            // Thêm các dòng Frame
+            for (int f = 0; f < result.FramesCount; f++)
             {
-                dataGridView2.Rows[r1].Cells[i].Value = (i % 4 == 0) ? "" : (i % 3).ToString();
-            }
+                int rIndex = dataGridView2.Rows.Add();
+                dataGridView2.Rows[rIndex].Cells[0].Value = $"Khung số {f + 1}";
 
-            // 6. Thêm Dòng 2 (Mô phỏng dữ liệu Khung 2)
-            int r2 = dataGridView2.Rows.Add();
-            dataGridView2.Rows[r2].Cells[0].Value = "Khung số 2";
-            for (int i = 1; i <= 30; i++)
-            {
-                dataGridView2.Rows[r2].Cells[i].Value = (i % 5 == 0) ? "" : (i % 2).ToString();
-            }
-
-            // 7. Thêm Dòng 3 (Dòng Trạng Thái / Kết quả - Có tô màu để check độ mượt)
-            int r3 = dataGridView2.Rows.Add();
-            dataGridView2.Rows[r3].Cells[0].Value = "Trạng Thái";
-            for (int i = 1; i <= 30; i++)
-            {
-                if (i % 3 == 0)
+                for (int i = 0; i < result.Pages.Count; i++)
                 {
-                    dataGridView2.Rows[r3].Cells[i].Value = "F"; // Fault
-                    dataGridView2.Rows[r3].Cells[i].Style.BackColor = Color.LightPink; // Tô nền đỏ nhạt
-                    dataGridView2.Rows[r3].Cells[i].Style.ForeColor = Color.Red;
+                    int val = result.Grid[f, i];
+                    // Nếu giá trị khác -1 thì in ra, ngược lại để rỗng
+                    dataGridView2.Rows[rIndex].Cells[i + 1].Value = (val != -1) ? val.ToString() : "";
+                }
+            }
+
+            // Thêm dòng Trạng thái
+            int rState = dataGridView2.Rows.Add();
+            dataGridView2.Rows[rState].Cells[0].Value = "Trạng Thái";
+
+            for (int i = 0; i < result.Pages.Count; i++)
+            {
+                if (!result.IsHit[i])
+                {
+                    dataGridView2.Rows[rState].Cells[i + 1].Value = "F";
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.BackColor = Color.LightPink;
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.ForeColor = Color.Red;
                 }
                 else
                 {
-                    dataGridView2.Rows[r3].Cells[i].Value = "H"; // Hit
-                    dataGridView2.Rows[r3].Cells[i].Style.BackColor = Color.LightGreen; // Tô nền xanh nhạt
-                    dataGridView2.Rows[r3].Cells[i].Style.ForeColor = Color.Green;
+                    dataGridView2.Rows[rState].Cells[i + 1].Value = "H";
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.BackColor = Color.LightGreen;
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.ForeColor = Color.Green;
                 }
             }
         }

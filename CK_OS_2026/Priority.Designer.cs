@@ -62,6 +62,7 @@
             label4 = new Label();
             panel1 = new Panel();
             label2 = new Label();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             groupBox1.SuspendLayout();
@@ -382,12 +383,24 @@
             label2.Text = "Nhập dữ liệu cho từng P (AT >= 0 , BT > 0, Priority)";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Non-Preemptive", "Preemptive" });
+            comboBox1.Location = new Point(37, 512);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(280, 28);
+            comboBox1.TabIndex = 28;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // Priority
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1106, 707);
+            Controls.Add(comboBox1);
             Controls.Add(label2);
             Controls.Add(label4);
             Controls.Add(panel1);
@@ -453,5 +466,6 @@
         private Panel panel1;
         private Label label2;
         private PictureBox pictureBoxGantt;
+        private ComboBox comboBox1;
     }
 }

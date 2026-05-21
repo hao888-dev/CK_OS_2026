@@ -46,7 +46,6 @@
             label4 = new Label();
             panel4 = new Panel();
             dataGridView2 = new DataGridView();
-            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -59,7 +58,7 @@
             label9.ForeColor = SystemColors.ButtonFace;
             label9.Location = new Point(56, -5);
             label9.Name = "label9";
-            label9.Size = new Size(95, 50);
+            label9.Size = new Size(95, 49);
             label9.TabIndex = 16;
             label9.Text = "OPT";
             // 
@@ -212,22 +211,11 @@
             dataGridView2.Size = new Size(1049, 208);
             dataGridView2.TabIndex = 31;
             // 
-            // button3
-            // 
-            button3.Location = new Point(769, 314);
-            button3.Name = "button3";
-            button3.Size = new Size(99, 34);
-            button3.TabIndex = 32;
-            button3.Text = "Test";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
             // OPT
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1106, 707);
-            Controls.Add(button3);
             Controls.Add(dataGridView2);
             Controls.Add(panel2);
             Controls.Add(label4);
@@ -272,6 +260,5 @@
         private Label label4;
         private Panel panel4;
         private DataGridView dataGridView2;
-        private Button button3;
     }
 }
