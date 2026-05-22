@@ -9,40 +9,38 @@ namespace CK_OS_2026
 {
     public class PriorityScheduler : Scheduler
     {
-        private bool isPreemptive;
+        private bool isPreemptive; // cờ để đánh dấu => true là Preemptive, false là Non-Preemptive
 
-        // Thêm cờ isPreemptive vào Constructor
-        public PriorityScheduler(List<Process> processes, bool isPreemptive) : base(processes)
+        public PriorityScheduler(List<Process> processes, bool isPreemptive) : base(processes) // base là gọi constructor của class cha Scheduler
         {
             this.isPreemptive = isPreemptive;
         }
 
         public override void Run()
         {
-            int currentTime = 0;
-            int completedProcesses = 0;
-            int n = process.Count;
+            int currentTime = 0; // thời gian hiện tại
+            int completedProcesses = 0; // số process hoàn thành
+            int n = process.Count; // tổng số process
 
-            while (completedProcesses < n)
+            while (completedProcesses < n) // duyệt đến khi mọi process hoàn thành
             {
-                int targetIndex = -1;
+                int targetIndex = -1; // lưu vị trí của process được chọn
 
-                // Duyệt tìm Process ưu tiên cao nhất trong số các tiến trình ĐÃ ĐẾN và CHƯA XONG
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < n; i++) // duyệt qua hết các process để tìm chỉ 1 process là ứng viên tốt nhất để vào CPU chạy
                 {
-                    if (process[i].arrivalTime <= currentTime && process[i].remainingTime > 0)
+                    if (process[i].arrivalTime <= currentTime && process[i].remainingTime > 0) // đến rồi (vì bé hơn currentTime và remainingTime vẫn còn => được quyền vào chạy
                     {
-                        if (targetIndex == -1)
+                        if (targetIndex == -1) // lần đầu thấy process hợp lệ
                         {
-                            targetIndex = i;
+                            targetIndex = i; // chọn tạm thời process đó
                         }
-                        else if (process[i].priority < process[targetIndex].priority)
+                        else if (process[i].priority < process[targetIndex].priority) // so sánh chỉ số priority của process thứ i hiện tại với priority của ứng viên vừa tìm được 
                         {
-                            targetIndex = i;
+                            targetIndex = i; // nếu process thứ i tốt hơn thì cập nhật lại thứ i sẽ là ứng viên
                         }
-                        else if (process[i].priority == process[targetIndex].priority)
+                        else if (process[i].priority == process[targetIndex].priority) // bằng nhau về chỉ số priority thì xét đến arrivalTime
                         {
-                            if (process[i].arrivalTime < process[targetIndex].arrivalTime)
+                            if (process[i].arrivalTime < process[targetIndex].arrivalTime) // ai arrivalTime bé hơn thì được chọn làm ứng viên
                             {
                                 targetIndex = i;
                             }
@@ -50,46 +48,43 @@ namespace CK_OS_2026
                     }
                 }
 
-                // Không có tiến trình nào khả dụng => CPU nhàn rỗi
-                if (targetIndex == -1)
+                if (targetIndex == -1) // không có ứng viên => CPU nhàn rỗi
                 {
-                    currentTime++;
+                    currentTime++; // tăng thời gian hiện tại lên xem để các process có thể đến
                     continue;
                 }
 
-                Process currentProcess = process[targetIndex];
+                Process currentProcess = process[targetIndex]; // lấy process ứng viên tốt nhất để chọn vào chạy trong CPU
 
-                // Đánh dấu thời gian đáp ứng (Response Time) ở lần chạy ĐẦU TIÊN
-                if (currentProcess.remainingTime == currentProcess.burstTime)
+
+                // Response Time là thời gian chờ tính từ lúc vào đế khi được chạy lần đầu tiên
+                if (currentProcess.remainingTime == currentProcess.burstTime) // nếu remainingTime còn bằng burstTime => process chưa chạy lần nào
                 {
-                    currentProcess.markResponse(currentTime);
+                    currentProcess.markResponse(currentTime); // vậy ta có điểm mốc là thời gian chạy lần đầu => responseTime = thời điểm được chạy lần đầu - arrivalTime
                 }
 
-                // --- XỬ LÝ DỰA VÀO CHẾ ĐỘ NGƯỜI DÙNG CHỌN ---
-                if (isPreemptive)
+                if (isPreemptive) // ý tưởng sẽ là chạy 1 tick rồi dừng, xong quay lại xét toàn bộ process để xem có process nào được ưu tiên hơn nữa không
                 {
-                    // Chế độ Preemptive (Cắt ngang): Chạy 1 tick rồi vòng lên đánh giá lại xem có tiến trình khác chen ngang không
-                    appendGantt(currentProcess.ID!, currentTime);
-                    currentProcess.executeOneTick();
-                    currentTime++;
+                    appendGantt(currentProcess.ID!, currentTime); // ghi vào gantt chart 1 tick 
+                    currentProcess.executeOneTick(); // trừ đi 1 remainingTime
+                    currentTime++; // tăng hiện tại lên
 
-                    if (currentProcess.remainingTime == 0)
+                    if (currentProcess.remainingTime == 0) // nếu hết remainingTime
                     {
-                        currentProcess.markCompletion(currentTime);
-                        completedProcesses++;
+                        currentProcess.markCompletion(currentTime); // vậy nó đã hoàn thành
+                        completedProcesses++; // tăng số process đã hoàn thành
                     }
                 }
                 else
                 {
-                    // Chế độ Non-Preemptive (Độc quyền): Chạy một mạch cho đến khi remainingTime = 0
-                    while (currentProcess.remainingTime > 0)
+                    while (currentProcess.remainingTime > 0) // cứ con remainingTime là chạy => chạy hết thì thôi
                     {
-                        appendGantt(currentProcess.ID!, currentTime);
-                        currentProcess.executeOneTick();
-                        currentTime++;
+                        appendGantt(currentProcess.ID!, currentTime); // ghi vào gantt chart 1 tick 
+                        currentProcess.executeOneTick(); // trừ đi 1 remainingTime
+                        currentTime++; // tăng hiện tại lên
                     }
-                    currentProcess.markCompletion(currentTime);
-                    completedProcesses++;
+                    currentProcess.markCompletion(currentTime); // sau khi chạy hết xong thì cũng là lúc nó hoàn thành => ghi nhận lại
+                    completedProcesses++; // tăng hiện tại lên
                 }
             }
         }
