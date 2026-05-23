@@ -1,65 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestCodeSRTF;
 
 namespace CK_OS_2026
 {
-    // Lớp thay thế trang theo thuật toán FIFO (First In First Out)
-    // Trang nào vào bộ nhớ trước sẽ bị thay thế trước
-    public class FIFOPageReplacement : Scheduler
+    public class FIFOResult // lưu kết quả cho giao diện
     {
-        private int[] pages;      // Chuỗi các trang cần truy cập (page reference string)
-        private int frameCount;   // Số khung trang (frame) có trong bộ nhớ vật lý
+        public List<int> Pages { get; set; } = new List<int>(); // danh sách các trang
+        public int FramesCount { get; set; } // số lượng frame => biết cần bao nhiêu dòng để vẽ bảng
+        public int[,] Grid { get; set; } // Grid[dòng frame, cột bước]
+        public bool[] IsHit { get; set; }  // true = HIT, false = FAULT
+        public int PageFaults { get; set; } // đếm số lần thiếu trang
+    }
 
-        // Constructor: nhận danh sách tiến trình, chuỗi trang, và số frame
-        public FIFOPageReplacement(List<Process> processes, int[] pages, int frameCount) : base(processes)
+    internal class FIFOAlgorithm // chứa thuật toán FIFO
+    {
+        public static FIFOResult RunFIFO(List<int> pages, int frameCount)
         {
-            this.pages = pages;
-            this.frameCount = frameCount;
-        }
-
-        public override void Run()
-        {
-            int[] frames = new int[frameCount]; // Mảng lưu các trang đang ở trong bộ nhớ
-            int pageFaults = 0;                 // Đếm tổng số lần page fault (truy cập bị trượt)
-            int fifoIndex = 0;                  // Con trỏ xoay vòng, luôn trỏ vào frame vào sớm nhất (cũ nhất)
-
-            // Khởi tạo tất cả frame = -1 (rỗng, chưa có trang nào)
-            for (int i = 0; i < frameCount; i++)
-                frames[i] = -1;
-
-            // Duyệt qua từng trang trong chuỗi truy cập
-            for (int i = 0; i < pages.Length; i++)
+            int n = pages.Count;
+            FIFOResult result = new FIFOResult
             {
-                int page = pages[i]; // Trang cần truy cập ở bước này
-                bool found = false;  // Cờ: trang có đang ở trong frame không?
+                Pages = pages,
+                FramesCount = frameCount,
+                Grid = new int[frameCount, n],
+                IsHit = new bool[n],
+                PageFaults = 0
+            };
 
-                // Kiểm tra page hit: trang có sẵn trong bộ nhớ chưa?
-                for (int j = 0; j < frameCount; j++)
+            // Khởi tạo Grid toàn -1 (ô trống)
+            for (int i = 0; i < frameCount; i++)
+                for (int j = 0; j < n; j++)
+                    result.Grid[i, j] = -1;
+
+            List<int> currentFrames = new List<int>(); // các trang đang trong frame
+            int pointer = 0; // con trỏ trỏ vào vị trí frame sẽ bị thay tiếp theo (vòng tròn)
+
+            for (int i = 0; i < n; i++) // duyệt từng page
+            {
+                int currentPage = pages[i]; // lấy page hiện tại
+                bool isHit = currentFrames.Contains(currentPage); // kiểm tra có trong frame chưa
+                result.IsHit[i] = isHit; // lưu lại kết quả hit/fault
+
+                if (!isHit) // PAGE FAULT
                 {
-                    if (frames[j] == page)
+                    result.PageFaults++;
+
+                    if (currentFrames.Count < frameCount) // còn chỗ trống
                     {
-                        found = true; // Page hit → không cần thay thế
-                        break;
+                        currentFrames.Add(currentPage); // nạp vào frame
                     }
+                    else // frame đầy => thay trang tại vị trí pointer (vào sớm nhất)
+                    {
+                        currentFrames[pointer] = currentPage; // thay thế trang tại vị trí con trỏ
+                    }
+
+                    pointer = (pointer + 1) % frameCount; // dịch con trỏ sang vị trí kế tiếp (vòng tròn)
                 }
 
-                // Page fault: trang chưa có trong bộ nhớ → phải nạp vào
-                if (!found)
-                {
-                    pageFaults++;                                    // Tăng bộ đếm page fault
-                    frames[fifoIndex] = page;                        // Ghi đè lên frame cũ nhất (FIFO)
-                    fifoIndex = (fifoIndex + 1) % frameCount;        // Dịch con trỏ sang frame kế tiếp (xoay vòng)
-                }
-
-                // Ghi nhận trạng thái trang tại bước i vào biểu đồ
-                appendGantt(page.ToString(), i);
+                // Ghi trạng thái frame hiện tại vào Grid
+                for (int f = 0; f < currentFrames.Count; f++)
+                    result.Grid[f, i] = currentFrames[f];
             }
 
-            // Kết thúc: pageFaults chứa tổng số lần page fault của toàn bộ chuỗi
+            return result; // trả về toàn bộ kết quả cho giao diện
         }
     }
 }
