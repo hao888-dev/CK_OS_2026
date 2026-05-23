@@ -8,7 +8,7 @@ namespace CK_OS_2026
         public List<int> Pages { get; set; } = new List<int>(); // danh sách các trang
         public int FramesCount { get; set; } // số lượng frame => biết cần bao nhiêu dòng để vẽ bảng
         public int[,] Grid { get; set; } // Grid[dòng frame, cột bước]
-        public bool[] IsHit { get; set; }  // true = HIT, false = FAULT
+        public bool[] IsHit { get; set; } // true = có thay thế trang (frame đầy), false = không
         public int PageFaults { get; set; } // đếm số lần thiếu trang
     }
 
@@ -22,7 +22,7 @@ namespace CK_OS_2026
                 Pages = pages,
                 FramesCount = frameCount,
                 Grid = new int[frameCount, n],
-                IsHit = new bool[n],
+                IsHit = new bool[n], // mặc định toàn false
                 PageFaults = 0
             };
 
@@ -38,21 +38,20 @@ namespace CK_OS_2026
             {
                 int currentPage = pages[i]; // lấy page hiện tại
                 bool isHit = currentFrames.Contains(currentPage); // kiểm tra có trong frame chưa
-                result.IsHit[i] = isHit; // lưu lại kết quả hit/fault
 
                 if (!isHit) // PAGE FAULT
                 {
                     result.PageFaults++;
-
                     if (currentFrames.Count < frameCount) // còn chỗ trống
                     {
                         currentFrames.Add(currentPage); // nạp vào frame
+                        // IsHit[i] giữ nguyên false => không đánh F (chỉ nạp lần đầu)
                     }
                     else // frame đầy => thay trang tại vị trí pointer (vào sớm nhất)
                     {
                         currentFrames[pointer] = currentPage; // thay thế trang tại vị trí con trỏ
+                        result.IsHit[i] = true; // đánh F vì có thay thế trang thật sự
                     }
-
                     pointer = (pointer + 1) % frameCount; // dịch con trỏ sang vị trí kế tiếp (vòng tròn)
                 }
 
