@@ -7,8 +7,8 @@ namespace CK_OS_2026
     {
         public List<int> Pages { get; set; } = new List<int>(); // danh sách các trang
         public int FramesCount { get; set; } // số lượng frame => biết cần bao nhiêu dòng để vẽ bảng
-        public int[,] Grid { get; set; } // Grid[dòng frame, cột bước]
-        public bool[] IsHit { get; set; } // true = có thay thế trang (frame đầy), false = không
+        public int[,] ?Grid { get; set; } // Grid[dòng frame, cột bước]
+        public bool[] ?IsHit { get; set; } // true = có thay thế trang (frame đầy), false = không
         public int PageFaults { get; set; } // đếm số lần thiếu trang
     }
 
