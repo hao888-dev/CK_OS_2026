@@ -16,7 +16,7 @@ namespace CK_OS_2026
         // Constructor: nhận danh sách tiến trình và quantumTime, truyền processes lên lớp cha
         public RoundRobinScheduler(List<Process> processes, int quantumTime) : base(processes)
         {
-            this.quantumTime = quantumTime;
+            this.quantumTime = quantumTime;// Lưu quantumTime để sử dụng trong thuật toán
         }
 
         public override void Run()
@@ -24,61 +24,55 @@ namespace CK_OS_2026
             int n = process.Count;    // Tổng số tiến trình cần lên lịch
             int currentTime = 0;      // Đồng hồ CPU, tăng từng tick
             int completed = 0;        // Đếm số tiến trình đã hoàn thành
-            int currentIndex = -1;    // Khởi đầu -1: lần đầu (i=1) → idx=0, tìm từ đầu danh sách
 
-            // Vòng lặp chính: chạy đến khi tất cả tiến trình hoàn thành
+            Queue<Process> readyQueue = new Queue<Process>(); // hàng đợi FIFO chứa các tiến trình sẵn sàng
+            bool[] inQueue = new bool[n];                     // đánh dấu đã nạp vào queue chưa, tránh nạp trùng
+
             while (completed < n)
             {
-                bool found = false; // Cờ: tìm được tiến trình để chạy chưa?
-
-                // Tìm tiến trình tiếp theo theo kiểu vòng tròn (circular scan)
-                // i=1: bỏ qua currentIndex hiện tại, bắt đầu tìm từ tiến trình KẾ TIẾP
-                for (int i = 1; i <= n; i++)
-                {
-                    int idx = (currentIndex + i) % n; // Tính index vòng tròn, không bao giờ out of range
-
-                    // Chọn tiến trình nếu: đã đến rồi VÀ chưa hoàn thành
-                    if (process[idx].arrivalTime <= currentTime &&
-                        process[idx].remainingTime > 0)
+                // nạp các tiến trình đã đến vào queue
+                for (int i = 0; i < n; i++)
+                    if (!inQueue[i] && process[i].arrivalTime <= currentTime)
                     {
-                        found = true;
-                        currentIndex = idx; // Ghim tiến trình này vào CPU
-                        break;
+                        readyQueue.Enqueue(process[i]); // thêm vào cuối queue
+                        inQueue[i] = true;
                     }
-                }
 
-                // Không có tiến trình nào sẵn sàng → CPU idle, tăng thời gian và thử lại
-                if (!found)
+                if (readyQueue.Count == 0) // không có tiến trình nào sẵn sàng → CPU idle
                 {
                     currentTime++;
                     continue;
                 }
 
-                // Ghi response time lần đầu tiên tiến trình được chạy
-                // (bên trong markResponse tự kiểm tra, chỉ ghi 1 lần duy nhất)
-                process[currentIndex].markResponse(currentTime);
+                Process current = readyQueue.Dequeue();      // lấy tiến trình đầu queue
+                current.markResponse(currentTime);           // ghi nhận lần đầu tiên được CPU
 
-                // Tính thời gian thực tế chạy: lấy min(quantumTime, remainingTime)
-                // Tránh chạy quá thời gian còn lại của tiến trình
-                int runTime = Math.Min(quantumTime, process[currentIndex].remainingTime);
+                int runTime = Math.Min(quantumTime, current.remainingTime); // chạy tối đa quantum, hoặc ít hơn nếu sắp xong
 
-                // Chạy từng tick để ghi chính xác từng ô trên biểu đồ Gantt
                 for (int tick = 0; tick < runTime; tick++)
                 {
-                    appendGantt(process[currentIndex].ID!, currentTime); // Ghi ID vào Gantt tại tick này
-                    process[currentIndex].executeOneTick();               // remainingTime -= 1
-                    currentTime++;                                        // Tăng đồng hồ CPU
+                    appendGantt(current.ID!, currentTime);   // ghi vào biểu đồ Gantt
+                    current.executeOneTick();                // giảm remainingTime đi 1
+                    currentTime++;
+
+                    // nạp tiến trình mới đến ngay trong từng tick (không chờ hết quantum)
+                    for (int i = 0; i < n; i++)
+                        if (!inQueue[i] && process[i].arrivalTime <= currentTime)
+                        {
+                            readyQueue.Enqueue(process[i]);
+                            inQueue[i] = true;
+                        }
                 }
 
-                // Sau khi hết quantumTime, kiểm tra tiến trình có vừa hoàn thành không
-                if (process[currentIndex].remainingTime == 0)
+                if (current.remainingTime == 0)
                 {
-                    completed++;                                       // Tăng bộ đếm hoàn thành
-                    process[currentIndex].markCompletion(currentTime); // Lưu thời điểm kết thúc (tính TAT, WT)
+                    completed++;
+                    current.markCompletion(currentTime);     // ghi thời điểm kết thúc
                 }
-
-                // KHÔNG reset currentIndex → vòng sau tìm từ currentIndex+1
-                // Đảm bảo đúng thứ tự Round Robin, tiến trình vừa chạy xếp cuối hàng chờ
+                else
+                {
+                    readyQueue.Enqueue(current);             // chưa xong → về cuối queue, chờ lượt tiếp
+                }
             }
         }
     }
