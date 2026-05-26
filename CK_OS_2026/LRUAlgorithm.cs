@@ -35,15 +35,15 @@ internal class LRUAlgorithm
 
         for (int i = 0; i < n; i++)
         {
-            int currentPage = pages[i];
-            bool isHit = currentFrames.Contains(currentPage);
-            result.IsHit[i] = isHit;
+            int currentPage = pages[i]; // lấy page để xét
+            bool isHit = currentFrames.Contains(currentPage); // có trong frame hay không
+            result.IsHit[i] = isHit; // có rồi thì skip không cần làm gì nữa
 
-            if (!isHit)
+            if (!isHit) // không mới bắt đầu tiến hành công việc
             {
                 result.PageFaults++;
 
-                if (currentFrames.Count < frameCount)
+                if (currentFrames.Count < frameCount) // nếu đủ chổ thì nhét vào thôi
                 {
                     currentFrames.Add(currentPage);
                     result.IsReplacement[i] = false; 
@@ -59,27 +59,27 @@ internal class LRUAlgorithm
                     {
                         int lastUse = -1;
 
-                        for (int k = i - 1; k >= 0; k--)
+                        for (int k = i - 1; k >= 0; k--) // nhìn về quá khứ
                         {
-                            if (pages[k] == currentFrames[j])
+                            if (pages[k] == currentFrames[j]) // thấy thằng bằng mình
                             {
-                                lastUse = k;
-                                break;
+                                lastUse = k; // lưu lại
+                                break; // break vòng for
                             }
                         }
 
-                        if (lastUse < farthestIndex)
+                        if (lastUse < farthestIndex)  // tìm thằng xa nhất trong quá khứ (lâu rồi không được sử dụng)
                         {
-                            farthestIndex = lastUse;
+                            farthestIndex = lastUse; 
                             replaceIndex = j;
                         }
                     }
 
-                    currentFrames[replaceIndex] = currentPage;
+                    currentFrames[replaceIndex] = currentPage; // thay thế
                 }
             }
 
-            for (int f = 0; f < currentFrames.Count; f++)
+            for (int f = 0; f < currentFrames.Count; f++) // hiển thị lên bảng Grid
             {
                 result.Grid[f, i] = currentFrames[f];
             }
