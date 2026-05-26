@@ -38,6 +38,8 @@ namespace TestCodeSRTF
 
                 if (shortest == -1)
                 {
+                    appendGantt("IDLE", currentTime);
+
                     currentTime++;
                     continue;
                 }
