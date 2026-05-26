@@ -81,9 +81,9 @@
             lblSafe.AutoSize = true;
             lblSafe.Location = new Point(82, 370);
             lblSafe.Name = "lblSafe";
-            lblSafe.Size = new Size(38, 15);
+            lblSafe.Size = new Size(108, 15);
             lblSafe.TabIndex = 18;
-            lblSafe.Text = "label2";
+            lblSafe.Text = "Chuỗi an toàn: null";
             // 
             // Deadlock
             // 

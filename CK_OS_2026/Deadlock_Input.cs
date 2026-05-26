@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CK_OS_2026
@@ -13,16 +6,10 @@ namespace CK_OS_2026
     public partial class Deadlock_Input : Form
     {
         // =====================================
-        // DATA RETURN TO MAIN FORM
+        // RETURN DATA
         // =====================================
 
-        public int ProcessCount;
-        public int ResourceCount;
-
-        public int[] Instance;
-
-        public int[,] Allocation;
-        public int[,] Max;
+        public BankerData? Data;
 
         // =====================================
         // LOCAL VARIABLES
@@ -39,13 +26,13 @@ namespace CK_OS_2026
         {
             InitializeComponent();
         }
+
         // =====================================
-        // RENDER BUTTON
+        // CREATE TABLE BUTTON
         // =====================================
+
         private void button1_Click(object sender, EventArgs e)
         {
-            // check empty
-
             if (txtProcess.Text == "" || txtResource.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập Process và Thành phần");
@@ -53,207 +40,173 @@ namespace CK_OS_2026
             }
 
             process = int.Parse(txtProcess.Text);
-
             resource = int.Parse(txtResource.Text);
 
-            // create tables
-
             CreateInstanceTable();
-
             CreateAllocationTable();
-
             CreateMaxTable();
-
         }
+
         // =====================================
-        // CREATE INSTANCE TABLE
+        // INSTANCE TABLE
         // =====================================
 
         private void CreateInstanceTable()
         {
             dgvInstance.Columns.Clear();
-
             dgvInstance.Rows.Clear();
-
             dgvInstance.AllowUserToAddRows = false;
-
             dgvInstance.RowHeadersVisible = false;
+            dgvInstance.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // create columns A B C D
+            // resource columns
 
             for (int i = 0; i < resource; i++)
             {
                 char c = (char)('A' + i);
-
-                dgvInstance.Columns.Add(
-                    c.ToString(),
-                    c.ToString()
-                );
+                dgvInstance.Columns.Add(c.ToString(), c.ToString());
             }
 
             // only 1 row
 
             dgvInstance.Rows.Add();
         }
+
         // =====================================
-        // CREATE ALLOCATION TABLE
+        // ALLOCATION TABLE
         // =====================================
 
         private void CreateAllocationTable()
         {
             dgvAllocation.Columns.Clear();
-
             dgvAllocation.Rows.Clear();
-
             dgvAllocation.AllowUserToAddRows = false;
-
             dgvAllocation.RowHeadersVisible = false;
+            dgvAllocation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Process column
+            // process column
 
-            dgvAllocation.Columns.Add(
-                "Process",
-                "Process"
-            );
+            dgvAllocation.Columns.Add("Process", "Process");
 
             // resource columns
 
             for (int i = 0; i < resource; i++)
             {
                 char c = (char)('A' + i);
-
-                dgvAllocation.Columns.Add(
-                    c.ToString(),
-                    c.ToString()
-                );
+                dgvAllocation.Columns.Add(c.ToString(), c.ToString());
             }
 
-            // create rows
+            // rows
 
             for (int i = 0; i < process; i++)
             {
                 dgvAllocation.Rows.Add();
-
-                dgvAllocation.Rows[i]
-                    .Cells[0]
-                    .Value = "P" + i;
+                dgvAllocation.Rows[i].Cells[0].Value = "P" + i;
+                dgvAllocation.Rows[i].Cells[0].ReadOnly = true;
             }
         }
 
         // =====================================
-        // CREATE MAX TABLE
+        // MAX TABLE
         // =====================================
 
         private void CreateMaxTable()
         {
             dgvMax.Columns.Clear();
-
             dgvMax.Rows.Clear();
-
             dgvMax.AllowUserToAddRows = false;
-
             dgvMax.RowHeadersVisible = false;
+            dgvMax.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Process column
+            // process column
 
-            dgvMax.Columns.Add(
-                "Process",
-                "Process"
-            );
+            dgvMax.Columns.Add("Process", "Process");
 
             // resource columns
 
             for (int i = 0; i < resource; i++)
             {
                 char c = (char)('A' + i);
-
-                dgvMax.Columns.Add(
-                    c.ToString(),
-                    c.ToString()
-                );
+                dgvMax.Columns.Add(c.ToString(), c.ToString());
             }
 
-            // create rows
+            // rows
 
             for (int i = 0; i < process; i++)
             {
                 dgvMax.Rows.Add();
-
-                dgvMax.Rows[i]
-                    .Cells[0]
-                    .Value = "P" + i;
+                dgvMax.Rows[i].Cells[0].Value = "P" + i;
+                dgvMax.Rows[i].Cells[0].ReadOnly = true;
             }
         }
+
+        // =====================================
+        // SAVE BUTTON
+        // =====================================
 
         private void button2_Click(object sender, EventArgs e)
         {
             try
             {
                 // =====================================
-                // SAVE BASIC INFO
+                // CREATE ARRAYS
                 // =====================================
 
-                ProcessCount = process;
-
-                ResourceCount = resource;
+                int[] instance = new int[resource];
+                int[,] allocation = new int[process, resource];
+                int[,] max = new int[process, resource];
 
                 // =====================================
-                // SAVE INSTANCE
+                // INSTANCE
                 // =====================================
-
-                Instance = new int[resource];
 
                 for (int j = 0; j < resource; j++)
                 {
-                    Instance[j] = Convert.ToInt32(
-                        dgvInstance.Rows[0]
-                        .Cells[j]
-                        .Value
-                    );
+                    instance[j] = Convert.ToInt32(dgvInstance.Rows[0].Cells[j].Value);
                 }
 
                 // =====================================
-                // SAVE ALLOCATION + MAX
+                // ALLOCATION + MAX
                 // =====================================
-
-                Allocation = new int[process, resource];
-
-                Max = new int[process, resource];
 
                 for (int i = 0; i < process; i++)
                 {
                     for (int j = 0; j < resource; j++)
                     {
-                        Allocation[i, j]
-                            = Convert.ToInt32(
-                                dgvAllocation.Rows[i]
-                                .Cells[j + 1]
-                                .Value
-                            );
-
-                        Max[i, j]
-                            = Convert.ToInt32(
-                                dgvMax.Rows[i]
-                                .Cells[j + 1]
-                                .Value
-                            );
+                        allocation[i, j] = Convert.ToInt32(dgvAllocation.Rows[i].Cells[j + 1].Value);
+                        max[i, j] = Convert.ToInt32(dgvMax.Rows[i].Cells[j + 1].Value);
                     }
                 }
 
                 // =====================================
-                // RETURN SUCCESS
+                // CREATE DATA OBJECT
+                // =====================================
+
+                Data = new BankerData()
+                {
+                    ProcessCount = process,
+                    ResourceCount = resource,
+                    Instance = instance,
+                    Allocation = allocation,
+                    Max = max
+                };
+
+                // =====================================
+                // SUCCESS
                 // =====================================
 
                 DialogResult = DialogResult.OK;
-
                 Close();
             }
             catch
             {
-                MessageBox.Show(
-                    "Vui lòng nhập đầy đủ dữ liệu"
-                );
+                MessageBox.Show("Vui lòng nhập đầy đủ dữ liệu");
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

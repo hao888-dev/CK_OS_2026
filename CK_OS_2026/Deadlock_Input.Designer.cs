@@ -84,7 +84,7 @@
             dgvInstance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvInstance.Location = new Point(29, 193);
             dgvInstance.Name = "dgvInstance";
-            dgvInstance.Size = new Size(240, 144);
+            dgvInstance.Size = new Size(240, 202);
             dgvInstance.TabIndex = 4;
             // 
             // label3
@@ -99,15 +99,15 @@
             // dgvAllocation
             // 
             dgvAllocation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAllocation.Location = new Point(445, 50);
+            dgvAllocation.Location = new Point(285, 193);
             dgvAllocation.Name = "dgvAllocation";
-            dgvAllocation.Size = new Size(240, 144);
+            dgvAllocation.Size = new Size(240, 202);
             dgvAllocation.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(445, 27);
+            label4.Location = new Point(285, 166);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 7;
@@ -116,19 +116,20 @@
             // dgvMax
             // 
             dgvMax.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMax.Location = new Point(445, 253);
+            dgvMax.Location = new Point(548, 193);
             dgvMax.Name = "dgvMax";
-            dgvMax.Size = new Size(240, 144);
+            dgvMax.Size = new Size(240, 202);
             dgvMax.TabIndex = 8;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(445, 225);
+            label5.Location = new Point(548, 166);
             label5.Name = "label5";
             label5.Size = new Size(62, 15);
             label5.TabIndex = 9;
             label5.Text = "Nhập Max";
+            label5.Click += label5_Click;
             // 
             // button1
             // 

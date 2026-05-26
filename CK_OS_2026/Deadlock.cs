@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CK_OS_2026
 {
     public partial class Deadlock : Form
     {
-
         public Deadlock()
         {
             InitializeComponent();
         }
+
+        // =====================================
+        // OPEN INPUT FORM
+        // =====================================
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -25,92 +21,39 @@ namespace CK_OS_2026
 
             if (f.ShowDialog() == DialogResult.OK)
             {
-                RenderFullTable(
-                    f.ProcessCount,
-                    f.ResourceCount,
-                    f.Instance,
-                    f.Allocation,
-                    f.Max
-                );
+                BankerAlgorithm banker = new BankerAlgorithm();
+                BankerResult result = banker.Run(f.Data!);
+                RenderFullTable(f.Data!, result);
             }
-
         }
+
         // =====================================
-        // RENDER FULL TABLE
+        // RENDER TABLE
         // =====================================
 
-        private void RenderFullTable(
-            int process,
-            int resource,
-            int[] instance,
-            int[,] allocation,
-            int[,] max)
+        private void RenderFullTable(BankerData data, BankerResult result)
         {
             dgvMain.Columns.Clear();
-
             dgvMain.Rows.Clear();
-
             dgvMain.AllowUserToAddRows = false;
-
             dgvMain.RowHeadersVisible = false;
+            dgvMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dgvMain.AutoSizeColumnsMode
-                = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // =====================================
-            // NEED
-            // =====================================
-
-            int[,] need = new int[process, resource];
-
-            for (int i = 0; i < process; i++)
-            {
-                for (int j = 0; j < resource; j++)
-                {
-                    need[i, j]
-                        = max[i, j]
-                        - allocation[i, j];
-                }
-            }
-
-            // =====================================
-            // AVAILABLE
-            // =====================================
-
-            int[] available = new int[resource];
-
-            for (int j = 0; j < resource; j++)
-            {
-                int sum = 0;
-
-                for (int i = 0; i < process; i++)
-                {
-                    sum += allocation[i, j];
-                }
-
-                available[j]
-                    = instance[j] - sum;
-            }
+            int process = data.ProcessCount;
+            int resource = data.ResourceCount;
 
             // =====================================
             // CREATE COLUMNS
             // =====================================
 
-            dgvMain.Columns.Add(
-                "Process",
-                "Process"
-            );
+            dgvMain.Columns.Add("Process", "Process");
 
             // Allocation
 
             for (int j = 0; j < resource; j++)
             {
                 char c = (char)('A' + j);
-
-                dgvMain.Columns.Add(
-                    "Alloc" + c,
-                    "Allocation " + c
-                );
+                dgvMain.Columns.Add("Alloc" + c, "Allocation " + c);
             }
 
             // Max
@@ -118,11 +61,7 @@ namespace CK_OS_2026
             for (int j = 0; j < resource; j++)
             {
                 char c = (char)('A' + j);
-
-                dgvMain.Columns.Add(
-                    "Max" + c,
-                    "Max " + c
-                );
+                dgvMain.Columns.Add("Max" + c, "Max " + c);
             }
 
             // Available
@@ -130,11 +69,7 @@ namespace CK_OS_2026
             for (int j = 0; j < resource; j++)
             {
                 char c = (char)('A' + j);
-
-                dgvMain.Columns.Add(
-                    "Avail" + c,
-                    "Available " + c
-                );
+                dgvMain.Columns.Add("Avail" + c, "Available " + c);
             }
 
             // Need
@@ -142,83 +77,12 @@ namespace CK_OS_2026
             for (int j = 0; j < resource; j++)
             {
                 char c = (char)('A' + j);
-
-                dgvMain.Columns.Add(
-                    "Need" + c,
-                    "Need " + c
-                );
+                dgvMain.Columns.Add("Need" + c, "Need " + c);
             }
 
-            // Finish order
+            // Finish
 
-            dgvMain.Columns.Add(
-                "Finish",
-                "Finish"
-            );
-
-            // =====================================
-            // BANKER ALGORITHM
-            // =====================================
-
-            bool[] finish = new bool[process];
-
-            int[] order = new int[process];
-
-            List<int[]> availableSteps
-                = new List<int[]>();
-
-            availableSteps.Add(
-                (int[])available.Clone()
-            );
-
-            int step = 1;
-
-            bool found;
-
-            do
-            {
-                found = false;
-
-                for (int i = 0; i < process; i++)
-                {
-                    if (!finish[i])
-                    {
-                        bool canRun = true;
-
-                        for (int j = 0; j < resource; j++)
-                        {
-                            if (need[i, j]
-                                > available[j])
-                            {
-                                canRun = false;
-                                break;
-                            }
-                        }
-
-                        if (canRun)
-                        {
-                            for (int j = 0; j < resource; j++)
-                            {
-                                available[j]
-                                    += allocation[i, j];
-                            }
-
-                            finish[i] = true;
-
-                            order[i] = step;
-
-                            step++;
-
-                            availableSteps.Add(
-                                (int[])available.Clone()
-                            );
-
-                            found = true;
-                        }
-                    }
-                }
-
-            } while (found);
+            dgvMain.Columns.Add("Finish", "Finish");
 
             // =====================================
             // RENDER ROWS
@@ -227,43 +91,33 @@ namespace CK_OS_2026
             for (int i = 0; i < process; i++)
             {
                 dgvMain.Rows.Add();
-
                 int col = 0;
 
                 // Process
 
-                dgvMain.Rows[i]
-                    .Cells[col++]
-                    .Value = "P" + i;
+                dgvMain.Rows[i].Cells[col++].Value = "P" + i;
 
                 // Allocation
 
                 for (int j = 0; j < resource; j++)
                 {
-                    dgvMain.Rows[i]
-                        .Cells[col++]
-                        .Value = allocation[i, j];
+                    dgvMain.Rows[i].Cells[col++].Value = data.Allocation[i, j];
                 }
 
                 // Max
 
                 for (int j = 0; j < resource; j++)
                 {
-                    dgvMain.Rows[i]
-                        .Cells[col++]
-                        .Value = max[i, j];
+                    dgvMain.Rows[i].Cells[col++].Value = data.Max[i, j];
                 }
 
                 // Available
 
-                if (i < availableSteps.Count)
+                if (i < result.AvailableSteps.Count)
                 {
                     for (int j = 0; j < resource; j++)
                     {
-                        dgvMain.Rows[i]
-                            .Cells[col++]
-                            .Value =
-                            availableSteps[i][j];
+                        dgvMain.Rows[i].Cells[col++].Value = result.AvailableSteps[i][j];
                     }
                 }
                 else
@@ -275,16 +129,12 @@ namespace CK_OS_2026
 
                 for (int j = 0; j < resource; j++)
                 {
-                    dgvMain.Rows[i]
-                        .Cells[col++]
-                        .Value = need[i, j];
+                    dgvMain.Rows[i].Cells[col++].Value = result.Need[i, j];
                 }
 
                 // Finish
 
-                dgvMain.Rows[i]
-                    .Cells[col]
-                    .Value = order[i];
+                dgvMain.Rows[i].Cells[col].Value = result.Order[i];
             }
 
             // =====================================
@@ -294,54 +144,24 @@ namespace CK_OS_2026
             dgvMain.Rows.Add();
 
             int lastRow = dgvMain.Rows.Count - 1;
-
-            int startCol
-                = 1 + resource + resource;
-
+            int startCol = 1 + resource + resource;
             for (int j = 0; j < resource; j++)
             {
-                dgvMain.Rows[lastRow]
-                    .Cells[startCol + j]
-                    .Value =
-                    availableSteps[
-                        availableSteps.Count - 1
-                    ][j];
+                dgvMain.Rows[lastRow].Cells[startCol + j].Value = result.AvailableSteps[result.AvailableSteps.Count - 1][j];
             }
 
             // =====================================
             // SAFE SEQUENCE
             // =====================================
 
-            List<string> safe
-                = new List<string>();
-
-            for (int s = 1; s < step; s++)
+            if (result.IsSafe)
             {
-                for (int i = 0; i < process; i++)
-                {
-                    if (order[i] == s)
-                    {
-                        safe.Add("P" + i);
-                    }
-                }
-            }
-
-            if (safe.Count == process)
-            {
-                lblSafe.Text =
-                    "Chuỗi an toàn: "
-                    + string.Join(
-                        " -> ",
-                        safe
-                    );
+                lblSafe.Text = "Chuỗi an toàn: " + string.Join(" -> ", result.SafeSequence);
             }
             else
             {
-                lblSafe.Text =
-                    "Chuỗi an toàn: null";
+                lblSafe.Text = "Chuỗi an toàn: null";
             }
         }
     }
 }
-    
-

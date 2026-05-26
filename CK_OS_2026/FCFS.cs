@@ -107,7 +107,7 @@ namespace CK_OS_2026
             scheduler!.process.ForEach(p =>
             {
                 dgvResults.Rows.Add(
-                    p.ID,
+                    p.ID!,
                     p.waitingTime,
                     p.responseTime,
                     p.turnAroundTime

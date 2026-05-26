@@ -23,6 +23,7 @@ namespace TestCodeSRTF
                 .ThenBy(p => p.ID)
                 .ToList();
 
+            //*fix thời gian rảnh giữa các tiến trình
             foreach (Process p in sortedProcesses)
             {
                 if (currentTime < p.arrivalTime)
