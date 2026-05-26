@@ -15,43 +15,36 @@ namespace CK_OS_2026
         public OPT()
         {
             InitializeComponent();
-
-            // THÊM 2 DÒNG NÀY ĐỂ KẾT NỐI NÚT BẤM VỚI HÀM XỬ LÝ
-            button1.Click += new EventHandler(button1_Click);
-            button2.Click += new EventHandler(button2_Click);
+            button1.Click += new EventHandler(button1_Click!);
+            button2.Click += new EventHandler(button2_Click!);
         }
 
-        // ==========================================
-        // 1. XỬ LÝ NÚT "NHẬP" ĐỂ TẠO DÒNG NHẬP CHUỖI
-        // ==========================================
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // bấm button 1 thì hàm này sẽ chạy
         {
-            if (int.TryParse(textBox1.Text, out int soTrang) && soTrang > 0)
+            if (int.TryParse(textBox1.Text, out int soTrang) && soTrang > 0 && soTrang <= 50) // ép chuỗi thành số nguyên và phải lớn hơn 0
             {
-                dataGridView1.Rows.Clear();
-                dataGridView1.AllowUserToAddRows = false;
+                dataGridView1.Rows.Clear(); // clear hết những dữ liệu cũ
 
-                for (int i = 0; i < soTrang; i++)
+                dataGridView1.AllowUserToAddRows = false; // DataGridView mặc định hay có dòng cuối thì lệnh này tắt nó đi
+
+                for (int i = 0; i < soTrang; i++) // tạo dòng để nhập dữ liệu 
                 {
                     dataGridView1.Rows.Add();
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập số lượng trang hợp lệ (>0)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập số lượng trang hợp lệ (> 0 hoặc <= 50)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        // ==========================================
-        // 2. XỬ LÝ NÚT "THỰC HIỆN" ĐỂ CHẠY OPT
-        // ==========================================
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // chạy opt
         {
             // Lấy chuỗi tham chiếu từ dataGridView1
             List<int> pages = new List<int>();
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value.ToString(), out int val))
+                if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value!.ToString(), out int val))
                 {
                     pages.Add(val);
                 }
@@ -77,9 +70,6 @@ namespace CK_OS_2026
             HienThiKetQuaThucTe(result);
         }
 
-        // ==========================================
-        // 3. HÀM HIỂN THỊ DỮ LIỆU THẬT LÊN DATAGRIDVIEW2
-        // ==========================================
         private void HienThiKetQuaThucTe(OPTResult result)
         {
             dataGridView2.Columns.Clear();
@@ -87,6 +77,8 @@ namespace CK_OS_2026
             dataGridView2.ScrollBars = ScrollBars.Both;
             dataGridView2.AllowUserToAddRows = false;
             dataGridView2.ReadOnly = true;
+
+            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Cột tiêu đề ghim (Frozen)
             DataGridViewTextBoxColumn colTieuDe = new DataGridViewTextBoxColumn();
@@ -96,6 +88,8 @@ namespace CK_OS_2026
             colTieuDe.Frozen = true;
             colTieuDe.DefaultCellStyle.Font = new Font(dataGridView2.Font, FontStyle.Bold);
             dataGridView2.Columns.Add(colTieuDe);
+
+            colTieuDe.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Tạo các cột ứng với từng bước
             for (int i = 0; i < result.Pages.Count; i++)
@@ -128,17 +122,15 @@ namespace CK_OS_2026
 
             for (int i = 0; i < result.Pages.Count; i++)
             {
-                if (!result.IsHit[i])
+                if (result.IsReplacement[i]) // Chỉ in F khi khung nhớ đã đầy và xảy ra Thay Thế
                 {
                     dataGridView2.Rows[rState].Cells[i + 1].Value = "F";
-                    dataGridView2.Rows[rState].Cells[i + 1].Style.BackColor = Color.LightPink;
-                    dataGridView2.Rows[rState].Cells[i + 1].Style.ForeColor = Color.Red;
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.Font = new Font(dataGridView2.Font, FontStyle.Bold);
+                    dataGridView2.Rows[rState].Cells[i + 1].Style.ForeColor = Color.Black;
                 }
-                else
+                else // Lỗi trang nạp mới (chưa đầy) hoặc Hit đều bỏ trống
                 {
-                    dataGridView2.Rows[rState].Cells[i + 1].Value = "H";
-                    dataGridView2.Rows[rState].Cells[i + 1].Style.BackColor = Color.LightGreen;
-                    dataGridView2.Rows[rState].Cells[i + 1].Style.ForeColor = Color.Green;
+                    dataGridView2.Rows[rState].Cells[i + 1].Value = "";
                 }
             }
         }

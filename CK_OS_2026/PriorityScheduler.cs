@@ -30,14 +30,10 @@ namespace CK_OS_2026
                 {
                     if (process[i].arrivalTime <= currentTime && process[i].remainingTime > 0) // đến rồi (vì bé hơn currentTime và remainingTime vẫn còn => được quyền vào chạy
                     {
-                        if (targetIndex == -1) // lần đầu thấy process hợp lệ
+                        if (targetIndex == -1 || process[i].priority < process[targetIndex].priority) // lần đầu thấy process hợp lệ
                         {
                             targetIndex = i; // chọn tạm thời process đó
-                        }
-                        else if (process[i].priority < process[targetIndex].priority) // so sánh chỉ số priority của process thứ i hiện tại với priority của ứng viên vừa tìm được 
-                        {
-                            targetIndex = i; // nếu process thứ i tốt hơn thì cập nhật lại thứ i sẽ là ứng viên
-                        }
+                        } 
                         else if (process[i].priority == process[targetIndex].priority) // bằng nhau về chỉ số priority thì xét đến arrivalTime
                         {
                             if (process[i].arrivalTime < process[targetIndex].arrivalTime) // ai arrivalTime bé hơn thì được chọn làm ứng viên
