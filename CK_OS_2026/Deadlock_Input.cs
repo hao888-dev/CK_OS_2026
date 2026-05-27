@@ -34,15 +34,25 @@ namespace CK_OS_2026
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (txtProcess.Text == "" || txtResource.Text == "")
+            // 1. Kiểm tra xem người dùng đã nhập cả 2 ô chưa
+            if (string.IsNullOrWhiteSpace(txtProcess.Text) || string.IsNullOrWhiteSpace(txtResource.Text))
             {
-                MessageBox.Show("Vui lòng nhập Process và Thành phần");
+                MessageBox.Show("Vui lòng nhập đầy đủ cả Process và Thành phần.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            process = int.Parse(txtProcess.Text);
-            resource = int.Parse(txtResource.Text);
+            // 2. Ép kiểu an toàn và kiểm tra điều kiện số nguyên dương dưới 100
+            bool isProcessValid = int.TryParse(txtProcess.Text, out process);
+            bool isResourceValid = int.TryParse(txtResource.Text, out resource);
 
+            // Kiểm tra: Phải là số nguyên hợp lệ, lớn hơn 0 và nhỏ hơn 100
+            if (!isProcessValid || !isResourceValid || process <= 0 || process >= 100 || resource <= 0 || resource >= 100)
+            {
+                MessageBox.Show("Vui lòng nhập một số nguyên dương cho cả Process và Thành phần.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 3. Nếu dữ liệu đã hợp lệ, thực thi các hàm tiếp theo
             CreateInstanceTable();
             CreateAllocationTable();
             CreateMaxTable();
@@ -58,7 +68,6 @@ namespace CK_OS_2026
             dgvInstance.Rows.Clear();
             dgvInstance.AllowUserToAddRows = false;
             dgvInstance.RowHeadersVisible = false;
-            dgvInstance.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // resource columns
 
@@ -66,6 +75,11 @@ namespace CK_OS_2026
             {
                 char c = (char)('A' + i);
                 dgvInstance.Columns.Add(c.ToString(), c.ToString());
+            }
+
+            foreach (DataGridViewColumn col in dgvInstance.Columns)
+            {
+                col.Width = 100;
             }
 
             // only 1 row
@@ -83,7 +97,6 @@ namespace CK_OS_2026
             dgvAllocation.Rows.Clear();
             dgvAllocation.AllowUserToAddRows = false;
             dgvAllocation.RowHeadersVisible = false;
-            dgvAllocation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // process column
 
@@ -95,6 +108,11 @@ namespace CK_OS_2026
             {
                 char c = (char)('A' + i);
                 dgvAllocation.Columns.Add(c.ToString(), c.ToString());
+            }
+
+            foreach (DataGridViewColumn col in dgvAllocation.Columns)
+            {
+                col.Width = 100;
             }
 
             // rows
@@ -117,7 +135,6 @@ namespace CK_OS_2026
             dgvMax.Rows.Clear();
             dgvMax.AllowUserToAddRows = false;
             dgvMax.RowHeadersVisible = false;
-            dgvMax.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // process column
 
@@ -129,6 +146,11 @@ namespace CK_OS_2026
             {
                 char c = (char)('A' + i);
                 dgvMax.Columns.Add(c.ToString(), c.ToString());
+            }
+
+            foreach (DataGridViewColumn col in dgvMax.Columns)
+            {
+                col.Width = 100;
             }
 
             // rows
@@ -201,7 +223,7 @@ namespace CK_OS_2026
             }
             catch
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ dữ liệu");
+                MessageBox.Show("Vui lòng nhập đúng và đủ dữ liệu");
             }
         }
     }

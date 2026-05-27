@@ -128,7 +128,7 @@
             // 
             // btnThucHien
             // 
-            btnThucHien.Location = new Point(393, 504);
+            btnThucHien.Location = new Point(393, 497);
             btnThucHien.Name = "btnThucHien";
             btnThucHien.Size = new Size(103, 42);
             btnThucHien.TabIndex = 4;
@@ -388,9 +388,9 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Non-Preemptive", "Preemptive" });
-            comboBox1.Location = new Point(37, 512);
+            comboBox1.Location = new Point(37, 497);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(280, 28);
+            comboBox1.Size = new Size(169, 28);
             comboBox1.TabIndex = 28;
             // 
             // Priority

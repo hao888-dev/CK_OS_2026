@@ -38,7 +38,6 @@ namespace CK_OS_2026
             dgvMain.Rows.Clear();
             dgvMain.AllowUserToAddRows = false;
             dgvMain.RowHeadersVisible = false;
-            dgvMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             int process = data.ProcessCount;
             int resource = data.ResourceCount;
@@ -79,6 +78,11 @@ namespace CK_OS_2026
             {
                 char c = (char)('A' + j);
                 dgvMain.Columns.Add("Need" + c, "Need " + c);
+            }
+
+            foreach (DataGridViewColumn col in dgvMain.Columns)
+            {
+                col.Width = 100;
             }
 
             // Finish

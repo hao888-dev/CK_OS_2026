@@ -62,6 +62,7 @@
             txtFramesCount.Font = new Font("Segoe UI", 16.2F);
             txtFramesCount.Location = new Point(35, 164);
             txtFramesCount.Name = "txtFramesCount";
+            txtFramesCount.PlaceholderText = ">= 0";
             txtFramesCount.Size = new Size(1016, 43);
             txtFramesCount.TabIndex = 26;
             // 
@@ -70,6 +71,7 @@
             txtPages.Font = new Font("Segoe UI", 16.2F);
             txtPages.Location = new Point(35, 71);
             txtPages.Name = "txtPages";
+            txtPages.PlaceholderText = ">= 0";
             txtPages.Size = new Size(1016, 43);
             txtPages.TabIndex = 25;
             // 
