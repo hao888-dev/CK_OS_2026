@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CK_OS_2026.CPUScheduling;
+using CK_OS_2026.UI_check;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestCodeSRTF;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CK_OS_2026
@@ -27,6 +28,7 @@ namespace CK_OS_2026
             comboBox1.Items.Clear(); // xóa các lựa chọn mặc định của comboBox
             comboBox1.Items.Add("Non-Preemptive"); // lựa chọn chạy Non-Preemptive
             comboBox1.Items.Add("Preemptive");     // lựa chọn chạy Preemptive
+            comboBox1.SelectedIndex = 0; // chọn mặc định
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; // khóa gõ văn bản, chỉ cho phép chọn
         }
 
@@ -119,10 +121,6 @@ namespace CK_OS_2026
             {
                 MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
         }
     }
 }

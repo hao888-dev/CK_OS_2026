@@ -71,10 +71,9 @@
             // panel3
             // 
             panel3.BackColor = Color.Black;
-            panel3.Location = new Point(1, 54);
-            panel3.Margin = new Padding(3, 2, 3, 2);
+            panel3.Location = new Point(-5, 72);
             panel3.Name = "panel3";
-            panel3.Size = new Size(326, 32);
+            panel3.Size = new Size(379, 43);
             panel3.TabIndex = 19;
             // 
             // label9
@@ -83,9 +82,9 @@
             label9.BackColor = Color.FromArgb(64, 64, 64);
             label9.Font = new Font("Sitka Small", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ButtonFace;
-            label9.Location = new Point(319, -2);
+            label9.Location = new Point(-5, -4);
             label9.Name = "label9";
-            label9.Size = new Size(339, 39);
+            label9.Size = new Size(431, 50);
             label9.TabIndex = 20;
             label9.Text = "First Come First Serve";
             // 
@@ -93,9 +92,9 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Black", 19.8000011F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label10.Location = new Point(333, 54);
+            label10.Location = new Point(381, 72);
             label10.Name = "label10";
-            label10.Size = new Size(90, 37);
+            label10.Size = new Size(111, 46);
             label10.TabIndex = 21;
             label10.Text = "Nhập";
             label10.TextAlign = ContentAlignment.MiddleLeft;
@@ -103,19 +102,18 @@
             // panel2
             // 
             panel2.BackColor = Color.Black;
-            panel2.Location = new Point(800, 87);
-            panel2.Margin = new Padding(3, 2, 3, 2);
+            panel2.Location = new Point(914, 116);
             panel2.Name = "panel2";
-            panel2.Size = new Size(169, 32);
+            panel2.Size = new Size(193, 43);
             panel2.TabIndex = 22;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Black", 19.8000011F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label3.Location = new Point(674, 87);
+            label3.Location = new Point(770, 116);
             label3.Name = "label3";
-            label3.Size = new Size(120, 37);
+            label3.Size = new Size(147, 46);
             label3.TabIndex = 23;
             label3.Text = "Kết quả";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -124,9 +122,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label1.Location = new Point(12, 99);
+            label1.Location = new Point(40, 132);
             label1.Name = "label1";
-            label1.Size = new Size(165, 20);
+            label1.Size = new Size(202, 25);
             label1.TabIndex = 24;
             label1.Text = "Nhập số lượng process";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -134,19 +132,17 @@
             // txtRowCount
             // 
             txtRowCount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRowCount.Location = new Point(12, 121);
-            txtRowCount.Margin = new Padding(3, 2, 3, 2);
+            txtRowCount.Location = new Point(40, 161);
             txtRowCount.Name = "txtRowCount";
             txtRowCount.PlaceholderText = "số phải >=0";
-            txtRowCount.Size = new Size(242, 27);
+            txtRowCount.Size = new Size(276, 31);
             txtRowCount.TabIndex = 25;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(265, 125);
-            btnCreate.Margin = new Padding(3, 2, 3, 2);
+            btnCreate.Location = new Point(329, 167);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(119, 23);
+            btnCreate.Size = new Size(136, 31);
             btnCreate.TabIndex = 26;
             btnCreate.Text = "Xác nhận";
             btnCreate.UseVisualStyleBackColor = true;
@@ -156,9 +152,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label2.Location = new Point(12, 162);
+            label2.Location = new Point(40, 216);
             label2.Name = "label2";
-            label2.Size = new Size(307, 20);
+            label2.Size = new Size(376, 25);
             label2.TabIndex = 27;
             label2.Text = "Nhập AT và BT cho từng P (AT >= 0 , BT > 0)";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -168,11 +164,10 @@
             dgvData.AllowUserToAddRows = false;
             dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvData.Columns.AddRange(new DataGridViewColumn[] { colID, colArrival, colBurst });
-            dgvData.Location = new Point(12, 193);
-            dgvData.Margin = new Padding(3, 2, 3, 2);
+            dgvData.Location = new Point(40, 257);
             dgvData.Name = "dgvData";
             dgvData.RowHeadersWidth = 51;
-            dgvData.Size = new Size(382, 171);
+            dgvData.Size = new Size(437, 228);
             dgvData.TabIndex = 28;
             // 
             // colID
@@ -203,12 +198,11 @@
             dgvResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvResults.Columns.AddRange(new DataGridViewColumn[] { resID, resWT, resRT, resTAT });
-            dgvResults.Location = new Point(518, 126);
-            dgvResults.Margin = new Padding(3, 2, 3, 2);
+            dgvResults.Location = new Point(592, 168);
             dgvResults.Name = "dgvResults";
             dgvResults.ReadOnly = true;
             dgvResults.RowHeadersWidth = 51;
-            dgvResults.Size = new Size(438, 141);
+            dgvResults.Size = new Size(501, 188);
             dgvResults.TabIndex = 29;
             // 
             // resID
@@ -250,11 +244,9 @@
             groupBox1.Controls.Add(lblThroughput);
             groupBox1.Controls.Add(lblAvgTAT);
             groupBox1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(518, 288);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
+            groupBox1.Location = new Point(592, 384);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(438, 140);
+            groupBox1.Size = new Size(501, 187);
             groupBox1.TabIndex = 30;
             groupBox1.TabStop = false;
             groupBox1.Text = "Giá trị tính được";
@@ -263,9 +255,9 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label8.Location = new Point(19, 109);
+            label8.Location = new Point(22, 145);
             label8.Name = "label8";
-            label8.Size = new Size(96, 20);
+            label8.Size = new Size(116, 25);
             label8.TabIndex = 16;
             label8.Text = "Thông năng:";
             // 
@@ -273,9 +265,9 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label7.Location = new Point(19, 84);
+            label7.Location = new Point(22, 112);
             label7.Name = "label7";
-            label7.Size = new Size(230, 20);
+            label7.Size = new Size(277, 25);
             label7.TabIndex = 15;
             label7.Text = "Thời gian xoay vòng trung bình:";
             // 
@@ -283,9 +275,9 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label6.Location = new Point(19, 58);
+            label6.Location = new Point(22, 77);
             label6.Name = "label6";
-            label6.Size = new Size(246, 20);
+            label6.Size = new Size(299, 25);
             label6.TabIndex = 14;
             label6.Text = "Thời gian đáp ứng trung bình (RT):";
             // 
@@ -293,9 +285,9 @@
             // 
             lblAvgRT.AutoSize = true;
             lblAvgRT.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            lblAvgRT.Location = new Point(368, 58);
+            lblAvgRT.Location = new Point(421, 77);
             lblAvgRT.Name = "lblAvgRT";
-            lblAvgRT.Size = new Size(17, 20);
+            lblAvgRT.Size = new Size(22, 25);
             lblAvgRT.TabIndex = 10;
             lblAvgRT.Text = "0";
             // 
@@ -303,9 +295,9 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label5.Location = new Point(19, 32);
+            label5.Location = new Point(22, 43);
             label5.Name = "label5";
-            label5.Size = new Size(219, 20);
+            label5.Size = new Size(265, 25);
             label5.TabIndex = 13;
             label5.Text = "Thời gian chờ trung bình (WT):";
             // 
@@ -313,9 +305,9 @@
             // 
             lblAvgWT.AutoSize = true;
             lblAvgWT.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            lblAvgWT.Location = new Point(368, 32);
+            lblAvgWT.Location = new Point(421, 43);
             lblAvgWT.Name = "lblAvgWT";
-            lblAvgWT.Size = new Size(17, 20);
+            lblAvgWT.Size = new Size(22, 25);
             lblAvgWT.TabIndex = 9;
             lblAvgWT.Text = "0";
             // 
@@ -323,9 +315,9 @@
             // 
             lblThroughput.AutoSize = true;
             lblThroughput.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            lblThroughput.Location = new Point(368, 109);
+            lblThroughput.Location = new Point(421, 145);
             lblThroughput.Name = "lblThroughput";
-            lblThroughput.Size = new Size(17, 20);
+            lblThroughput.Size = new Size(22, 25);
             lblThroughput.TabIndex = 12;
             lblThroughput.Text = "0";
             // 
@@ -333,9 +325,9 @@
             // 
             lblAvgTAT.AutoSize = true;
             lblAvgTAT.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            lblAvgTAT.Location = new Point(368, 84);
+            lblAvgTAT.Location = new Point(421, 112);
             lblAvgTAT.Name = "lblAvgTAT";
-            lblAvgTAT.Size = new Size(17, 20);
+            lblAvgTAT.Size = new Size(22, 25);
             lblAvgTAT.TabIndex = 11;
             lblAvgTAT.Text = "0";
             // 
@@ -343,16 +335,14 @@
             // 
             pnlGantt.AutoScroll = true;
             pnlGantt.Controls.Add(pictureBoxGantt);
-            pnlGantt.Location = new Point(1, 443);
-            pnlGantt.Margin = new Padding(3, 2, 3, 2);
+            pnlGantt.Location = new Point(1, 591);
             pnlGantt.Name = "pnlGantt";
-            pnlGantt.Size = new Size(971, 87);
+            pnlGantt.Size = new Size(1110, 116);
             pnlGantt.TabIndex = 31;
             // 
             // pictureBoxGantt
             // 
             pictureBoxGantt.Location = new Point(0, 0);
-            pictureBoxGantt.Margin = new Padding(3, 2, 3, 2);
             pictureBoxGantt.Name = "pictureBoxGantt";
             pictureBoxGantt.Size = new Size(125, 62);
             pictureBoxGantt.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -361,10 +351,9 @@
             // 
             // btnConfirm
             // 
-            btnConfirm.Location = new Point(275, 372);
-            btnConfirm.Margin = new Padding(3, 2, 3, 2);
+            btnConfirm.Location = new Point(340, 496);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(119, 28);
+            btnConfirm.Size = new Size(136, 37);
             btnConfirm.TabIndex = 32;
             btnConfirm.Text = "Lập lịch";
             btnConfirm.UseVisualStyleBackColor = true;
@@ -373,28 +362,27 @@
             // panel1
             // 
             panel1.BackColor = Color.Black;
-            panel1.Location = new Point(1, 407);
-            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Location = new Point(-5, 543);
             panel1.Name = "panel1";
-            panel1.Size = new Size(49, 32);
+            panel1.Size = new Size(62, 43);
             panel1.TabIndex = 33;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Black", 19.8000011F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label4.Location = new Point(56, 402);
+            label4.Location = new Point(64, 536);
             label4.Name = "label4";
-            label4.Size = new Size(209, 37);
+            label4.Size = new Size(261, 46);
             label4.TabIndex = 34;
             label4.Text = "Giản đồ  Gantt";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FCFS
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(968, 530);
+            ClientSize = new Size(1106, 707);
             Controls.Add(label4);
             Controls.Add(panel1);
             Controls.Add(btnConfirm);
@@ -412,7 +400,6 @@
             Controls.Add(label9);
             Controls.Add(panel3);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FCFS";
             Text = "FCFS";
             ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();

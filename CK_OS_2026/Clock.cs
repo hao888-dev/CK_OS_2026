@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CK_OS_2026.PageReplacement;
+using CK_OS_2026.UI_check;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,166 +14,50 @@ namespace CK_OS_2026
             InitializeComponent();
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void runCode_Click_1(object sender, EventArgs e)
         {
-            dataPage.Rows.Clear();
-            dataPage.Columns.Clear();
-
-            // =========================
-            // CHECK FRAME
-            // =========================
-
-            if (!int.TryParse(txtFrame.Text, out int frameCount) || frameCount < 1)
+            if (!int.TryParse(txtFramesCount.Text, out int framesCount) || framesCount <= 0)
             {
-                MessageBox.Show("Số frame phải >= 1");
+                MessageBox.Show("Số Frame không hợp lệ! Vui lòng nhập số nguyên lớn hơn 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // =========================
-            // GET REFERENCE STRING
-            // =========================
+            // Tách chuỗi nhập vào (cách nhau bởi dấu phẩy hoặc khoảng trắng)
+            string[] pagesStr = txtPages.Text
+                .Split(',')
+                .Select(x => x.Trim())
+                .Where(x => x != "")
+                .ToArray();
 
-            string[] references = txtReference.Text.Split(',').Select(x => x.Trim()).Where(x => x != "").ToArray();
-
-            if (references.Length == 0)
+            if (pagesStr.Length <= 2)
             {
-                MessageBox.Show("Vui lòng nhập chuỗi tham chiếu");
+                MessageBox.Show("Chuỗi trang quá ngắn! Vui lòng nhập nhiều hơn 2 trang.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // =========================
-            // CREATE COLUMNS
-            // =========================
-
-            dataPage.Columns.Add("Frame", "Khung");
-            for (int i = 0; i < references.Length; i++)
+            List<int> pages = new List<int>();
+            foreach (string p in pagesStr)
             {
-                dataPage.Columns.Add("C" + i, references[i]);
-            }
-
-            // =========================
-            // CREATE FRAME ROWS
-            // =========================
-
-            for (int i = 0; i < frameCount; i++)
-            {
-                dataPage.Rows.Add("Frame " + (i + 1));
-            }
-
-            dataPage.Rows.Add("F");
-
-            // =========================
-            // CLOCK ALGORITHM
-            // =========================
-
-            string[] frames = new string[frameCount];
-            bool[] useBit = new bool[frameCount];
-            int pointer = 0;
-
-            for (int step = 0; step < references.Length; step++)
-            {
-                string page = references[step];
-                bool hit = false;
-
-                // =========================
-                // CHECK HIT
-                // =========================
-
-                for (int i = 0; i < frameCount; i++)
+                if (int.TryParse(p.Trim(), out int pageNumber))
                 {
-                    if (frames[i] == page)
-                    {
-                        useBit[i] = true;
-                        hit = true;
-                        break;
-                    }
+                    pages.Add(pageNumber);
                 }
-
-                int replacedIndex = -1;
-                bool replaced = false;
-
-                // =========================
-                // PAGE FAULT
-                // =========================
-
-                if (!hit)
+                else
                 {
-                    while (true)
-                    {
-                        // EMPTY FRAME
-
-                        if (frames[pointer] == null)
-                        {
-                            frames[pointer] = page;
-                            useBit[pointer] = true;
-                            replacedIndex = pointer;
-                            pointer = (pointer + 1) % frameCount;
-                            break;
-                        }
-
-                        // REPLACE PAGE
-
-                        if (useBit[pointer] == false)
-                        {
-                            replaced = true;
-                            frames[pointer] = page;
-                            useBit[pointer] = true;
-                            replacedIndex = pointer;
-                            pointer = (pointer + 1) % frameCount;
-                            break;
-                        }
-                        else
-                        {
-                            // SECOND CHANCE
-
-                            useBit[pointer] = false;
-                            pointer = (pointer + 1) % frameCount;
-                        }
-                    }
-                }
-
-                // =========================
-                // RENDER FRAME DATA
-                // =========================
-
-                for (int i = 0; i < frameCount; i++)
-                {
-                    dataPage.Rows[i].Cells[step + 1].Value = frames[i];
-                    dataPage.Rows[i].Cells[step + 1].Style.BackColor = Color.White;
-                    dataPage.Rows[i].Cells[step + 1].Style.ForeColor = Color.Black;
-                }
-
-                // =========================
-                // CLOCK POINTER COLOR
-                // =========================
-
-                if (replacedIndex != -1)
-                {
-                    dataPage.Rows[replacedIndex].Cells[step + 1].Style.BackColor = Color.LightYellow;
-                }
-
-                // =========================
-                // FAULT
-                // =========================
-
-                if (replaced)
-                {
-                    dataPage.Rows[frameCount].Cells[step + 1].Value = "F";
-                    dataPage.Rows[frameCount].Cells[step + 1].Style.BackColor = Color.Red;
-                    dataPage.Rows[frameCount].Cells[step + 1].Style.ForeColor = Color.White;
+                    MessageBox.Show($"Giá trị '{p}' không phải là số hợp lệ!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
             }
 
-            // =========================
-            // FORMAT DATAGRIDVIEW
-            // =========================
+            PageReplacementAlgorithm algorithm = new ClockAlgorithm(pages, framesCount);
 
-            dataPage.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataPage.RowHeadersVisible = false;
-            dataPage.AllowUserToAddRows = false;
-            dataPage.ReadOnly = true;
-            dataPage.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataPage.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            // CHẠY THUẬT TOÁN
+            if (algorithm != null)
+            {
+                PageReplacementResult result = algorithm.Run();
+
+                UIHelper.DisplayToDataGridView(dgvResults, result);
+            }
         }
     }
 }

@@ -30,13 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clock));
             label9 = new Label();
-            label1 = new Label();
+            label3 = new Label();
             label2 = new Label();
-            txtFrame = new TextBox();
-            txtReference = new TextBox();
-            btnConfirm = new Button();
-            dataPage = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataPage).BeginInit();
+            label1 = new Label();
+            txtFramesCount = new TextBox();
+            txtPages = new TextBox();
+            runCode = new Button();
+            dgvResults = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             SuspendLayout();
             // 
             // label9
@@ -45,93 +46,110 @@
             label9.BackColor = Color.FromArgb(64, 64, 64);
             label9.Font = new Font("Sitka Small", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ButtonFace;
-            label9.Location = new Point(-1, 0);
+            label9.Location = new Point(988, 0);
             label9.Name = "label9";
-            label9.Size = new Size(94, 39);
-            label9.TabIndex = 18;
+            label9.Size = new Size(120, 50);
+            label9.TabIndex = 31;
             label9.Text = "Clock";
             // 
-            // label1
+            // label3
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(25, 55);
-            label1.Name = "label1";
-            label1.Size = new Size(116, 21);
-            label1.TabIndex = 19;
-            label1.Text = "Nhập số Frame";
+            label3.AutoSize = true;
+            label3.Font = new Font("Tahoma", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(45, 306);
+            label3.Name = "label3";
+            label3.Size = new Size(149, 41);
+            label3.TabIndex = 38;
+            label3.Text = "Kết quả";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(25, 105);
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(45, 138);
             label2.Name = "label2";
-            label2.Size = new Size(202, 21);
-            label2.TabIndex = 20;
-            label2.Text = "Nhập tham chiếu trang nhớ";
+            label2.Size = new Size(206, 31);
+            label2.TabIndex = 37;
+            label2.Text = "Số frame được cấp";
             // 
-            // txtFrame
+            // label1
             // 
-            txtFrame.Location = new Point(25, 79);
-            txtFrame.Name = "txtFrame";
-            txtFrame.Size = new Size(227, 23);
-            txtFrame.TabIndex = 21;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(45, 45);
+            label1.Name = "label1";
+            label1.Size = new Size(298, 31);
+            label1.TabIndex = 36;
+            label1.Text = "Nhập chuỗi tham chiếu nhớ";
             // 
-            // txtReference
+            // txtFramesCount
             // 
-            txtReference.Location = new Point(25, 129);
-            txtReference.Name = "txtReference";
-            txtReference.Size = new Size(227, 23);
-            txtReference.TabIndex = 22;
+            txtFramesCount.Font = new Font("Segoe UI", 16.2F);
+            txtFramesCount.Location = new Point(45, 172);
+            txtFramesCount.Name = "txtFramesCount";
+            txtFramesCount.Size = new Size(1016, 43);
+            txtFramesCount.TabIndex = 35;
             // 
-            // btnConfirm
+            // txtPages
             // 
-            btnConfirm.Location = new Point(280, 129);
-            btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(75, 23);
-            btnConfirm.TabIndex = 23;
-            btnConfirm.Text = "Xác nhận";
-            btnConfirm.UseVisualStyleBackColor = true;
-            btnConfirm.Click += btnConfirm_Click;
+            txtPages.Font = new Font("Segoe UI", 16.2F);
+            txtPages.Location = new Point(45, 79);
+            txtPages.Name = "txtPages";
+            txtPages.Size = new Size(1016, 43);
+            txtPages.TabIndex = 34;
             // 
-            // dataPage
+            // runCode
             // 
-            dataPage.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataPage.Location = new Point(25, 207);
-            dataPage.Name = "dataPage";
-            dataPage.Size = new Size(853, 226);
-            dataPage.TabIndex = 24;
+            runCode.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            runCode.Location = new Point(867, 234);
+            runCode.Name = "runCode";
+            runCode.Size = new Size(194, 49);
+            runCode.TabIndex = 33;
+            runCode.Text = "Chạy";
+            runCode.UseVisualStyleBackColor = true;
+            runCode.Click += runCode_Click_1;
+            // 
+            // dgvResults
+            // 
+            dgvResults.AllowUserToAddRows = false;
+            dgvResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvResults.Location = new Point(45, 350);
+            dgvResults.Name = "dgvResults";
+            dgvResults.ReadOnly = true;
+            dgvResults.RowHeadersVisible = false;
+            dgvResults.RowHeadersWidth = 51;
+            dgvResults.Size = new Size(1016, 311);
+            dgvResults.TabIndex = 32;
             // 
             // Clock
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(968, 530);
-            Controls.Add(dataPage);
-            Controls.Add(btnConfirm);
-            Controls.Add(txtReference);
-            Controls.Add(txtFrame);
+            ClientSize = new Size(1106, 707);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(txtFramesCount);
+            Controls.Add(txtPages);
+            Controls.Add(runCode);
+            Controls.Add(dgvResults);
             Controls.Add(label9);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Clock";
             Text = "Clock";
-            ((System.ComponentModel.ISupportInitialize)dataPage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvResults).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
         private Label label9;
-        private Label label1;
+        private Label label3;
         private Label label2;
-        private TextBox txtFrame;
-        private TextBox txtReference;
-        private Button btnConfirm;
-        private DataGridView dataPage;
+        private Label label1;
+        private TextBox txtFramesCount;
+        private TextBox txtPages;
+        private Button runCode;
+        private DataGridView dgvResults;
     }
 }

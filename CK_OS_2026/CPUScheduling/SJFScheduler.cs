@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCodeSRTF;
+using CK_OS_2026.CPUScheduling;
 
-namespace CK_OS_2026
+namespace CK_OS_2026.CPUScheduling
 {
     // Lớp điều phối SJF (Shortest Job First) - Non-Preemptive
     // Chọn tiến trình có burst time ngắn nhất để chạy, không bị ngắt giữa chừng
@@ -42,8 +42,8 @@ namespace CK_OS_2026
                         {
                             if (shortest == -1 ||
                                 process[i].burstTime < process[shortest].burstTime || // Burst ngắn hơn → ưu tiên hơn
-                                (process[i].burstTime == process[shortest].burstTime &&
-                                 process[i].arrivalTime < process[shortest].arrivalTime)) // Burst bằng nhau → chọn đến sớm hơn
+                                process[i].burstTime == process[shortest].burstTime &&
+                                 process[i].arrivalTime < process[shortest].arrivalTime) // Burst bằng nhau → chọn đến sớm hơn
                             {
                                 shortest = i;
                             }

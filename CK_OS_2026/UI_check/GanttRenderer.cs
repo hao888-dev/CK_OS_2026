@@ -1,11 +1,13 @@
-﻿using System;
+﻿using CK_OS_2026.CPUScheduling;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CK_OS_2026.UI_check;
 
-namespace TestCodeSRTF
+namespace CK_OS_2026.UI_check
 {
     public class GanttRenderer
     {
@@ -51,14 +53,14 @@ namespace TestCodeSRTF
                     int width = (item.End - item.Start) * CellWidth;
                     Rectangle rect = new Rectangle(xOffset, YStart, width, CellHeight);
 
-                    //Brush brush = Brushes.LightYellow;
                     bool isIdle = item.ProcessId.Equals("IDLE", StringComparison.OrdinalIgnoreCase);
                     Brush brush = isIdle ? Brushes.LightGray : Brushes.LightYellow;
+
 
                     g.FillRectangle(brush, rect);
                     g.DrawRectangle(pen, rect);
 
-                    g.DrawString(item.ProcessId, font, Brushes.Black, xOffset + (width / 4), YStart + 10);
+                    g.DrawString(item.ProcessId, font, Brushes.Black, xOffset + width / 4, YStart + 10);
                     g.DrawString(item.Start.ToString(), font, Brushes.Red, xOffset - 5, YStart + CellHeight + 5);
 
                     xOffset += width;

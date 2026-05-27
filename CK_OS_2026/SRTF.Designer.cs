@@ -337,7 +337,7 @@
             label9.BackColor = Color.FromArgb(64, 64, 64);
             label9.Font = new Font("Sitka Small", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ButtonFace;
-            label9.Location = new Point(288, -3);
+            label9.Location = new Point(0, -2);
             label9.Name = "label9";
             label9.Size = new Size(584, 50);
             label9.TabIndex = 15;

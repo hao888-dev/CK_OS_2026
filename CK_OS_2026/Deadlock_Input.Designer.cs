@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Deadlock_Input));
             label1 = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             txtProcess = new TextBox();
@@ -49,92 +50,106 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(24, 27);
+            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(33, 38);
             label1.Name = "label1";
-            label1.Size = new Size(94, 15);
+            label1.Size = new Size(151, 25);
             label1.TabIndex = 0;
             label1.Text = "Nhập số Process";
             // 
             // txtProcess
             // 
-            txtProcess.Location = new Point(29, 50);
+            txtProcess.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtProcess.Location = new Point(33, 67);
+            txtProcess.Margin = new Padding(3, 4, 3, 4);
             txtProcess.Name = "txtProcess";
-            txtProcess.Size = new Size(100, 23);
+            txtProcess.Size = new Size(451, 38);
             txtProcess.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(24, 88);
+            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(33, 127);
             label2.Name = "label2";
-            label2.Size = new Size(115, 15);
+            label2.Size = new Size(185, 25);
             label2.TabIndex = 2;
             label2.Text = "Nhập số thành phần";
             // 
             // txtResource
             // 
-            txtResource.Location = new Point(29, 117);
+            txtResource.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtResource.Location = new Point(33, 156);
+            txtResource.Margin = new Padding(3, 4, 3, 4);
             txtResource.Name = "txtResource";
-            txtResource.Size = new Size(100, 23);
+            txtResource.Size = new Size(451, 38);
             txtResource.TabIndex = 3;
             // 
             // dgvInstance
             // 
             dgvInstance.AccessibleName = "";
             dgvInstance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvInstance.Location = new Point(29, 193);
+            dgvInstance.Location = new Point(33, 257);
+            dgvInstance.Margin = new Padding(3, 4, 3, 4);
             dgvInstance.Name = "dgvInstance";
-            dgvInstance.Size = new Size(240, 202);
+            dgvInstance.RowHeadersWidth = 51;
+            dgvInstance.Size = new Size(274, 269);
             dgvInstance.TabIndex = 4;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 166);
+            label3.Location = new Point(33, 221);
             label3.Name = "label3";
-            label3.Size = new Size(83, 15);
+            label3.Size = new Size(103, 20);
             label3.TabIndex = 5;
             label3.Text = "Nhập Instance";
             // 
             // dgvAllocation
             // 
             dgvAllocation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAllocation.Location = new Point(370, 193);
+            dgvAllocation.Location = new Point(423, 257);
+            dgvAllocation.Margin = new Padding(3, 4, 3, 4);
             dgvAllocation.Name = "dgvAllocation";
-            dgvAllocation.Size = new Size(240, 202);
+            dgvAllocation.RowHeadersWidth = 51;
+            dgvAllocation.Size = new Size(274, 269);
             dgvAllocation.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(370, 166);
+            label4.Location = new Point(423, 221);
             label4.Name = "label4";
-            label4.Size = new Size(93, 15);
+            label4.Size = new Size(117, 20);
             label4.TabIndex = 7;
             label4.Text = "Nhập Allocation";
             // 
             // dgvMax
             // 
             dgvMax.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMax.Location = new Point(706, 193);
+            dgvMax.Location = new Point(807, 257);
+            dgvMax.Margin = new Padding(3, 4, 3, 4);
             dgvMax.Name = "dgvMax";
-            dgvMax.Size = new Size(240, 202);
+            dgvMax.RowHeadersWidth = 51;
+            dgvMax.Size = new Size(274, 269);
             dgvMax.TabIndex = 8;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(706, 166);
+            label5.Location = new Point(807, 221);
             label5.Name = "label5";
-            label5.Size = new Size(62, 15);
+            label5.Size = new Size(77, 20);
             label5.TabIndex = 9;
             label5.Text = "Nhập Max";
             // 
             // button1
             // 
-            button1.Location = new Point(167, 117);
+            button1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(537, 157);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(160, 38);
             button1.TabIndex = 10;
             button1.Text = "Render";
             button1.UseVisualStyleBackColor = true;
@@ -142,9 +157,10 @@
             // 
             // button2
             // 
-            button2.Location = new Point(875, 415);
+            button2.Location = new Point(970, 544);
+            button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
-            button2.Size = new Size(97, 23);
+            button2.Size = new Size(111, 31);
             button2.TabIndex = 11;
             button2.Text = "Hoàn thành";
             button2.UseVisualStyleBackColor = true;
@@ -152,9 +168,9 @@
             // 
             // Deadlock_Input
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(984, 450);
+            ClientSize = new Size(1125, 600);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label5);
@@ -167,6 +183,8 @@
             Controls.Add(label2);
             Controls.Add(txtProcess);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Deadlock_Input";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Deadlock_Input";

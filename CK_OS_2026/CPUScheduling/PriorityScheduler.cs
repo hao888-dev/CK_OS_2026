@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCodeSRTF;
+using CK_OS_2026.CPUScheduling;
 
-namespace CK_OS_2026
+namespace CK_OS_2026.CPUScheduling
 {
     public class PriorityScheduler : Scheduler
     {

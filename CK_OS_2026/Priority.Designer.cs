@@ -143,7 +143,7 @@
             label9.ForeColor = SystemColors.ButtonFace;
             label9.Location = new Point(-1, -6);
             label9.Name = "label9";
-            label9.Size = new Size(165, 49);
+            label9.Size = new Size(165, 50);
             label9.TabIndex = 16;
             label9.Text = "Priority";
             // 
@@ -392,7 +392,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(280, 28);
             comboBox1.TabIndex = 28;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Priority
             // 

@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CK_OS_2026.CPUScheduling;
 
-namespace TestCodeSRTF
+namespace CK_OS_2026.CPUScheduling
 {
     public class SRTFScheduler : Scheduler
     {
@@ -38,6 +39,8 @@ namespace TestCodeSRTF
 
                 if (shortest == -1)
                 {
+                    appendGantt("IDLE", currentTime);
+
                     currentTime++;
                     continue;
                 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CK_OS_2026.deadlockBanker;
 
-namespace CK_OS_2026
+namespace CK_OS_2026.deadlockBanker
 {
     public class BankerResult
     {

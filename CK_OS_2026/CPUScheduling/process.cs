@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CK_OS_2026.CPUScheduling;
 
-namespace TestCodeSRTF
+namespace CK_OS_2026.CPUScheduling
 {
     public class Process
     {
@@ -26,8 +27,8 @@ namespace TestCodeSRTF
             this.ID = ID;
             this.arrivalTime = arrivalTime;
             this.burstTime = burstTime;
-            this.remainingTime = burstTime;
-            this.priority = 0; // gán mặc định bằng 0 để không bị lỗi null
+            remainingTime = burstTime;
+            priority = 0; // gán mặc định bằng 0 để không bị lỗi null
         }
 
         // constructure riêng cho priority
@@ -36,7 +37,7 @@ namespace TestCodeSRTF
             this.ID = ID;
             this.arrivalTime = arrivalTime;
             this.burstTime = burstTime;
-            this.remainingTime = burstTime;
+            remainingTime = burstTime;
             this.priority = priority;
         }
 

@@ -40,16 +40,20 @@
             // dgvMain
             // 
             dgvMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMain.Location = new Point(23, 98);
+            dgvMain.Location = new Point(26, 131);
+            dgvMain.Margin = new Padding(3, 4, 3, 4);
             dgvMain.Name = "dgvMain";
-            dgvMain.Size = new Size(920, 227);
+            dgvMain.RowHeadersWidth = 51;
+            dgvMain.Size = new Size(1051, 445);
             dgvMain.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(188, 16);
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(846, 32);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(231, 60);
             button1.TabIndex = 1;
             button1.Text = "Thiết lập";
             button1.UseVisualStyleBackColor = true;
@@ -58,9 +62,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(23, 71);
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(26, 95);
             label1.Name = "label1";
-            label1.Size = new Size(101, 15);
+            label1.Size = new Size(202, 31);
             label1.TabIndex = 2;
             label1.Text = "Bảng Hoàn Chỉnh";
             // 
@@ -70,33 +75,33 @@
             label9.BackColor = Color.FromArgb(64, 64, 64);
             label9.Font = new Font("Sitka Small", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ButtonFace;
-            label9.Location = new Point(1, 0);
+            label9.Location = new Point(-2, 0);
             label9.Name = "label9";
-            label9.Size = new Size(148, 39);
+            label9.Size = new Size(188, 50);
             label9.TabIndex = 17;
             label9.Text = "Deadlock";
             // 
             // lblSafe
             // 
             lblSafe.AutoSize = true;
-            lblSafe.Location = new Point(82, 370);
+            lblSafe.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSafe.Location = new Point(26, 628);
             lblSafe.Name = "lblSafe";
-            lblSafe.Size = new Size(108, 15);
+            lblSafe.Size = new Size(218, 31);
             lblSafe.TabIndex = 18;
             lblSafe.Text = "Chuỗi an toàn: null";
             // 
             // Deadlock
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(968, 530);
+            ClientSize = new Size(1106, 707);
             Controls.Add(lblSafe);
             Controls.Add(label9);
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(dgvMain);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Deadlock";
             Text = "Deadlock";
             ((System.ComponentModel.ISupportInitialize)dgvMain).EndInit();

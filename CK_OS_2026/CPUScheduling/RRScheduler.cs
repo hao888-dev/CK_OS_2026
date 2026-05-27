@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCodeSRTF;
+using CK_OS_2026.CPUScheduling;
 
-namespace CK_OS_2026
+namespace CK_OS_2026.CPUScheduling
 {
     // Lớp điều phối Round Robin, kế thừa từ Scheduler
     // Mỗi tiến trình được chạy tối đa 'quantumTime' tick rồi nhường CPU cho tiến trình kế tiếp

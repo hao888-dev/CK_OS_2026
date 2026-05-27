@@ -18,9 +18,9 @@
             BtnPriority.Click += BtnPriority_Click;
             BtnDeadlock.Click += BtnDeadlock_Click;
             BtnOPT.Click += BtnOPT_Click;
-            BtnLRU.Click += BtnLRU_Click;
-            BtnFIFO.Click += BtnFIFO_Click;
-            BtnClock.Click += BtnClock_Click;
+            BtnLRU.Click += BtnLRU_Click!;
+            BtnFIFO.Click += BtnFIFO_Click!;
+            BtnClock.Click += BtnClock_Click!;
         }
 
         private void OpenChildForm(Form childForm)
