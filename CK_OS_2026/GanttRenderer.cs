@@ -53,6 +53,7 @@ namespace TestCodeSRTF
                     //Brush brush = Brushes.LightYellow;
                     bool isIdle = item.ProcessId.Equals("IDLE", StringComparison.OrdinalIgnoreCase);
                     Brush brush = isIdle ? Brushes.LightGray : Brushes.LightYellow;
+
                     g.FillRectangle(brush, rect);
                     g.DrawRectangle(pen, rect);
 
