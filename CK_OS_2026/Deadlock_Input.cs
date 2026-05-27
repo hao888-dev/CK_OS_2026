@@ -203,10 +203,5 @@ namespace CK_OS_2026
                 MessageBox.Show("Vui lòng nhập đầy đủ dữ liệu");
             }
         }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

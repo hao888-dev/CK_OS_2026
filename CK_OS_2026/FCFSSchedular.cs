@@ -26,9 +26,10 @@ namespace TestCodeSRTF
             //*fix thời gian rảnh giữa các tiến trình
             foreach (Process p in sortedProcesses)
             {
-                if (currentTime < p.arrivalTime)
+                while (currentTime < p.arrivalTime)
                 {
-                    currentTime = p.arrivalTime;
+                    appendGantt("IDLE", currentTime);
+                    currentTime++;
                 }
 
                 p.markResponse(currentTime);

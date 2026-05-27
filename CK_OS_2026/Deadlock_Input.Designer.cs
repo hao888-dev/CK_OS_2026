@@ -99,7 +99,7 @@
             // dgvAllocation
             // 
             dgvAllocation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAllocation.Location = new Point(285, 193);
+            dgvAllocation.Location = new Point(370, 193);
             dgvAllocation.Name = "dgvAllocation";
             dgvAllocation.Size = new Size(240, 202);
             dgvAllocation.TabIndex = 6;
@@ -107,7 +107,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(285, 166);
+            label4.Location = new Point(370, 166);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 7;
@@ -116,7 +116,7 @@
             // dgvMax
             // 
             dgvMax.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMax.Location = new Point(548, 193);
+            dgvMax.Location = new Point(706, 193);
             dgvMax.Name = "dgvMax";
             dgvMax.Size = new Size(240, 202);
             dgvMax.TabIndex = 8;
@@ -124,12 +124,11 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(548, 166);
+            label5.Location = new Point(706, 166);
             label5.Name = "label5";
             label5.Size = new Size(62, 15);
             label5.TabIndex = 9;
             label5.Text = "Nhập Max";
-            label5.Click += label5_Click;
             // 
             // button1
             // 
@@ -143,7 +142,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(678, 415);
+            button2.Location = new Point(875, 415);
             button2.Name = "button2";
             button2.Size = new Size(97, 23);
             button2.TabIndex = 11;
@@ -155,7 +154,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(984, 450);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label5);
@@ -169,6 +168,7 @@
             Controls.Add(txtProcess);
             Controls.Add(label1);
             Name = "Deadlock_Input";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Deadlock_Input";
             ((System.ComponentModel.ISupportInitialize)dgvInstance).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvAllocation).EndInit();

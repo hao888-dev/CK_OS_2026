@@ -11,6 +11,7 @@ using TestCodeSRTF;
 
 namespace CK_OS_2026
 {
+    // khi đưa vào gantt nếu rảnh phải đưa vào một tiến trình ảo có ID là "IDLE" để hiển thị thời gian rảnh
     public partial class FCFS : Form
     {
         private FCFSScheduler? scheduler;
