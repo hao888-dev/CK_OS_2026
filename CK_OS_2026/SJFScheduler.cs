@@ -53,6 +53,7 @@ namespace CK_OS_2026
                     // Không có tiến trình nào sẵn sàng → CPU idle, tăng thời gian và thử lại
                     if (shortest == -1)
                     {
+                        appendGantt("IDLE", currentTime);
                         currentTime++;
                         continue;
                     }

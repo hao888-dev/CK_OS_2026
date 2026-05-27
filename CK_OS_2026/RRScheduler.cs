@@ -40,6 +40,7 @@ namespace CK_OS_2026
 
                 if (readyQueue.Count == 0) // không có tiến trình nào sẵn sàng → CPU idle
                 {
+                    appendGantt("IDLE", currentTime);
                     currentTime++;
                     continue;
                 }
