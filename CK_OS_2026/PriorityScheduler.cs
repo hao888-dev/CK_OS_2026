@@ -46,6 +46,7 @@ namespace CK_OS_2026
 
                 if (targetIndex == -1) // không có ứng viên => CPU nhàn rỗi
                 {
+                    appendGantt("IDLE", currentTime);
                     currentTime++; // tăng thời gian hiện tại lên xem để các process có thể đến
                     continue;
                 }

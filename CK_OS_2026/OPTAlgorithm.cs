@@ -104,6 +104,7 @@ namespace CK_OS_2026
 
                         currentFrames[replaceIndex] = currentPage; // sau khi tìm xong ứng viên tốt nhất để thay thì lưu lại
                     }
+                    // nếu trang đang xét tới có trong frame rồi thì skip vì isHit = true
                 }
 
                 for (int f = 0; f < currentFrames.Count; f++) // in ra danh sách lên mành hình hiển thị

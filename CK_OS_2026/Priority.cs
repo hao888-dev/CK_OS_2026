@@ -34,7 +34,7 @@ namespace CK_OS_2026
         {
             dgvInput.Rows.Clear(); // clear hết sau khi thực hiện tránh người dùng bấm chạy 2 lần làm đè gantt
 
-            if (int.TryParse(txtSoLuong.Text, out int n) && n > 0) // chuyển từ chuỗi sang số nguyên dương
+            if (int.TryParse(txtSoLuong.Text, out int n) && n > 0 && n <= 50) // chuyển từ chuỗi sang số nguyên dương
             {
                 for (int i = 0; i < n; i++)
                 {
@@ -43,7 +43,7 @@ namespace CK_OS_2026
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập số lượng Process là một số nguyên dương!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập số lượng Process là một số nguyên dương (n > 0 và n <= 50)!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
