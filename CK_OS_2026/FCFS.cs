@@ -28,12 +28,7 @@ namespace CK_OS_2026
             {
                 if (rows <= 0 || rows > 100)
                 {
-                    MessageBox.Show(
-                        "Số lượng tiến trình phải nằm trong khoảng từ 1 đến 100!",
-                        "Thông báo",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Số lượng tiến trình phải nằm trong khoảng từ 1 đến 100!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 
                     txtRowCount.Clear();
                     txtRowCount.Focus();
