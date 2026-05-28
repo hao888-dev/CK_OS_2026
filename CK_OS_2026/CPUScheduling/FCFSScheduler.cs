@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +9,7 @@ namespace CK_OS_2026.CPUScheduling
 {
     public class FCFSScheduler : Scheduler
     {
-        public FCFSScheduler(List<Process> processes)
-            : base(processes)
-        {
-
-        }
+        public FCFSScheduler(List<Process> processes) : base(processes) {}
 
         public override void Run()
         {

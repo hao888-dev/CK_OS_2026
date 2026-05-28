@@ -49,10 +49,7 @@ namespace CK_OS_2026
             }
             else
             {
-                MessageBox.Show(
-                    "Vui lòng nhập một số nguyên dương hợp lệ!",
-                    "Thông báo"
-                );
+                MessageBox.Show("Vui lòng nhập một số nguyên dương hợp lệ!","Thông báo");
 
                 txtRowCount.Clear();
                 txtRowCount.Focus();
@@ -68,12 +65,7 @@ namespace CK_OS_2026
 
             if (dataRows.Count == 0)
             {
-                MessageBox.Show(
-                    "Bạn phải tạo và nhập dữ liệu trước khi lập lịch!",
-                    "LỖI",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Bạn phải tạo và nhập dữ liệu trước khi lập lịch!","LỖI",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
                 txtRowCount.Focus();
                 return;
@@ -122,8 +114,7 @@ namespace CK_OS_2026
 
             int maxCompletionTime = scheduler.process.Max(p => p.completionTime);
 
-            double throughput =
-                (double)scheduler.process.Count / maxCompletionTime;
+            double throughput = (double)scheduler.process.Count / maxCompletionTime;
 
             lblAvgWT.Text = $"{avgWT:F2}";
             lblAvgRT.Text = $"{avgRT:F2}";
@@ -146,9 +137,7 @@ namespace CK_OS_2026
                     string.IsNullOrWhiteSpace(valArrival.ToString()) ||
                     string.IsNullOrWhiteSpace(valBurst.ToString()))
                 {
-                    ShowError(
-                        $"Dòng {row.Index + 1} đang bị để trống dữ liệu."
-                    );
+                    ShowError($"Dòng {row.Index + 1} đang bị để trống dữ liệu.");
 
                     return false;
                 }
@@ -156,18 +145,14 @@ namespace CK_OS_2026
                 if (!int.TryParse(valArrival.ToString(), out int arrivalTime) ||
                     !int.TryParse(valBurst.ToString(), out int burstTime))
                 {
-                    ShowError(
-                        $"Dòng {row.Index + 1} chứa ký tự không phải là số."
-                    );
+                    ShowError($"Dòng {row.Index + 1} chứa ký tự không phải là số.");
 
                     return false;
                 }
 
                 if (arrivalTime < 0 || burstTime <= 0)
                 {
-                    ShowError(
-                        $"Dòng {row.Index + 1}: Arrival Time phải >= 0 và Burst Time phải > 0."
-                    );
+                    ShowError($"Dòng {row.Index + 1}: Arrival Time phải >= 0 và Burst Time phải > 0.");
 
                     return false;
                 }
@@ -178,12 +163,7 @@ namespace CK_OS_2026
 
         private void ShowError(string message)
         {
-            MessageBox.Show(
-                message,
-                "Lỗi nhập liệu",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
+            MessageBox.Show(message,"Lỗi nhập liệu",MessageBoxButtons.OK,MessageBoxIcon.Error);
         }
     }
 }

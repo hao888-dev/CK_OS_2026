@@ -21,8 +21,7 @@ namespace CK_OS_2026.deadlockBanker
             {
                 for (int j = 0; j < r; j++)
                 {
-                    need[i, j]
-                        = data.Max[i, j] - data.Allocation[i, j];
+                    need[i, j] = data.Max[i, j] - data.Allocation[i, j];
                 }
             }
 
