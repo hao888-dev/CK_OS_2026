@@ -22,8 +22,7 @@ namespace CK_OS_2026.deadlockBanker
                 for (int j = 0; j < r; j++)
                 {
                     need[i, j]
-                        = data.Max[i, j]
-                        - data.Allocation[i, j];
+                        = data.Max[i, j] - data.Allocation[i, j];
                 }
             }
 
@@ -38,8 +37,7 @@ namespace CK_OS_2026.deadlockBanker
                     sum += data.Allocation[i, j];
                 }
 
-                available[j]
-                    = data.Instance[j] - sum;
+                available[j] = data.Instance[j] - sum;
             }
 
             bool[] finish = new bool[p];
@@ -67,8 +65,7 @@ namespace CK_OS_2026.deadlockBanker
 
                         for (int j = 0; j < r; j++)
                         {
-                            if (need[i, j]
-                                > available[j])
+                            if (need[i, j] > available[j])
                             {
                                 canRun = false;
                                 break;
@@ -79,8 +76,7 @@ namespace CK_OS_2026.deadlockBanker
                         {
                             for (int j = 0; j < r; j++)
                             {
-                                available[j]
-                                    += data.Allocation[i, j];
+                                available[j] += data.Allocation[i, j];
                             }
 
                             finish[i] = true;
@@ -89,9 +85,7 @@ namespace CK_OS_2026.deadlockBanker
 
                             step++;
 
-                            steps.Add(
-                                (int[])available.Clone()
-                            );
+                            steps.Add((int[])available.Clone());
 
                             found = true;
                         }

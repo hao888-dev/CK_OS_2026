@@ -300,6 +300,7 @@
             // 
             // pnlGantt
             // 
+            pnlGantt.AutoScroll = true;
             pnlGantt.Controls.Add(pictureBoxGantt);
             pnlGantt.Location = new Point(-1, 597);
             pnlGantt.Name = "pnlGantt";

@@ -45,10 +45,10 @@
             label6 = new Label();
             label5 = new Label();
             label9 = new Label();
-            panel1 = new Panel();
             panel2 = new Panel();
             label10 = new Label();
             panel3 = new Panel();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             pnlGantt.SuspendLayout();
@@ -59,7 +59,7 @@
             // txtRowCount
             // 
             txtRowCount.Font = new Font("Segoe UI", 10.8F);
-            txtRowCount.Location = new Point(38, 159);
+            txtRowCount.Location = new Point(39, 147);
             txtRowCount.Name = "txtRowCount";
             txtRowCount.PlaceholderText = "số phải >= 1";
             txtRowCount.Size = new Size(220, 31);
@@ -68,7 +68,7 @@
             // txtQuantum
             // 
             txtQuantum.Font = new Font("Segoe UI", 10.8F);
-            txtQuantum.Location = new Point(38, 230);
+            txtQuantum.Location = new Point(39, 218);
             txtQuantum.Name = "txtQuantum";
             txtQuantum.PlaceholderText = "vd: 2";
             txtQuantum.Size = new Size(220, 31);
@@ -78,7 +78,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label1.Location = new Point(38, 131);
+            label1.Location = new Point(39, 119);
             label1.Name = "label1";
             label1.Size = new Size(202, 25);
             label1.TabIndex = 1;
@@ -89,7 +89,7 @@
             // 
             labelQuantum.AutoSize = true;
             labelQuantum.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            labelQuantum.Location = new Point(38, 205);
+            labelQuantum.Location = new Point(39, 193);
             labelQuantum.Name = "labelQuantum";
             labelQuantum.Size = new Size(182, 25);
             labelQuantum.TabIndex = 20;
@@ -98,7 +98,7 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(282, 159);
+            btnCreate.Location = new Point(283, 147);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(136, 31);
             btnCreate.TabIndex = 2;
@@ -111,7 +111,7 @@
             dgvData.AllowUserToAddRows = false;
             dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvData.Columns.AddRange(new DataGridViewColumn[] { colID, colArrival, colBurst });
-            dgvData.Location = new Point(38, 298);
+            dgvData.Location = new Point(39, 286);
             dgvData.Name = "dgvData";
             dgvData.RowHeadersWidth = 51;
             dgvData.Size = new Size(436, 228);
@@ -143,7 +143,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label2.Location = new Point(38, 270);
+            label2.Location = new Point(39, 258);
             label2.Name = "label2";
             label2.Size = new Size(376, 25);
             label2.TabIndex = 4;
@@ -152,7 +152,7 @@
             // 
             // btnConfirm
             // 
-            btnConfirm.Location = new Point(338, 542);
+            btnConfirm.Location = new Point(339, 530);
             btnConfirm.Name = "btnConfirm";
             btnConfirm.Size = new Size(136, 37);
             btnConfirm.TabIndex = 5;
@@ -216,9 +216,10 @@
             // 
             pnlGantt.AutoScroll = true;
             pnlGantt.Controls.Add(pictureBoxGantt);
-            pnlGantt.Location = new Point(-3, 625);
+            pnlGantt.Dock = DockStyle.Bottom;
+            pnlGantt.Location = new Point(0, 625);
             pnlGantt.Name = "pnlGantt";
-            pnlGantt.Size = new Size(1110, 116);
+            pnlGantt.Size = new Size(1106, 116);
             pnlGantt.TabIndex = 8;
             // 
             // pictureBoxGantt
@@ -274,7 +275,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Black", 19.8F, FontStyle.Bold | FontStyle.Italic);
-            label4.Location = new Point(38, 577);
+            label4.Location = new Point(59, 556);
             label4.Name = "label4";
             label4.Size = new Size(258, 45);
             label4.TabIndex = 13;
@@ -351,14 +352,6 @@
             label9.TabIndex = 15;
             label9.Text = "Round Robin";
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Black;
-            panel1.Location = new Point(0, 580);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(56, 42);
-            panel1.TabIndex = 16;
-            // 
             // panel2
             // 
             panel2.BackColor = Color.Black;
@@ -371,7 +364,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Black", 19.8F, FontStyle.Bold | FontStyle.Italic);
-            label10.Location = new Point(352, 74);
+            label10.Location = new Point(353, 62);
             label10.Name = "label10";
             label10.Size = new Size(110, 45);
             label10.TabIndex = 18;
@@ -381,10 +374,19 @@
             // panel3
             // 
             panel3.BackColor = Color.Black;
-            panel3.Location = new Point(0, 77);
+            panel3.Location = new Point(1, 65);
             panel3.Name = "panel3";
             panel3.Size = new Size(372, 42);
             panel3.TabIndex = 18;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Black;
+            panel1.Location = new Point(1, 556);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(55, 42);
+            panel1.TabIndex = 16;
             // 
             // RR
             // 
@@ -455,9 +457,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel3;
+        private Panel panel1;
     }
 }
