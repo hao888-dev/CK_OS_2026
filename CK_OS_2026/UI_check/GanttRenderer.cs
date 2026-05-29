@@ -46,7 +46,6 @@ namespace CK_OS_2026.UI_check
 
                 int xOffset = XStart;
 
-                // --- GIỮ NGUYÊN 100% LOGIC VÒNG LẶP VẼ CŨ CỦA BẠN ---
                 for (int i = 0; i < ganttData.Count; i++)
                 {
                     var item = ganttData[i];

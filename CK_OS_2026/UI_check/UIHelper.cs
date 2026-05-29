@@ -61,7 +61,7 @@ namespace CK_OS_2026.UI_check
                 }
             }
 
-            // Tùy chỉnh làm đẹp DataGridView cho gọn gàng, tinh tế
+            // Tùy chỉnh DataGridView 
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
